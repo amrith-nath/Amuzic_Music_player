@@ -31,6 +31,7 @@ class _SearchScreenState extends State<SearchScreen> {
   var playListDecoration = BoxDecoration(
     color: Colors.white,
     shape: BoxShape.circle,
+    border: Border.all(style: BorderStyle.solid, color: MyTheme.red, width: 2),
     boxShadow: [
       MyTheme.myBoxShadow(),
     ],
@@ -76,27 +77,30 @@ class _SearchScreenState extends State<SearchScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    width: size.width - 120,
-                    child: TextFormField(
-                      controller: _textController,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 0, style: BorderStyle.none),
-                            borderRadius: BorderRadius.circular(10)),
-                        filled: true,
-                        fillColor: const Color.fromRGBO(217, 217, 217, 1),
+                  SlideInLeft(
+                    duration: const Duration(milliseconds: 300),
+                    child: SizedBox(
+                      width: size.width - 120,
+                      child: TextFormField(
+                        controller: _textController,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  width: 0, style: BorderStyle.none),
+                              borderRadius: BorderRadius.circular(10)),
+                          filled: true,
+                          fillColor: const Color.fromRGBO(217, 217, 217, 1),
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            currenttext = value;
+                            flag = findPlaylistName(
+                                playList: playLists, currentText: currenttext);
+                            flagSong = findSongName(
+                                playList: audioSongs, currentText: currenttext);
+                          });
+                        },
                       ),
-                      onChanged: (value) {
-                        setState(() {
-                          currenttext = value;
-                          flag = findPlaylistName(
-                              playList: playLists, currentText: currenttext);
-                          flagSong = findSongName(
-                              playList: audioSongs, currentText: currenttext);
-                        });
-                      },
                     ),
                   ),
                   GestureDetector(
@@ -105,6 +109,8 @@ class _SearchScreenState extends State<SearchScreen> {
                       Navigator.pop(context);
                     },
                     child: ZoomIn(
+                      duration: const Duration(milliseconds: 300),
+
                       // duration: Duration(milliseconds: 500),
                       child: Container(
                         decoration: BoxDecoration(
@@ -129,50 +135,53 @@ class _SearchScreenState extends State<SearchScreen> {
             const Divider(),
             Expanded(
               flex: 2,
-              child: ListView(
-                physics: const BouncingScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                children: [
-                  ...playLists.map(
-                    (element) => element
-                                .toString()
-                                .toLowerCase()
-                                .contains(currenttext.toLowerCase()) &&
-                            element.toString() != "musics" &&
-                            element.toString() != "favourites"
-                        ? Column(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    PageTransition(
-                                      type: PageTransitionType.rightToLeft,
-                                      alignment: Alignment.bottomCenter,
-                                      child: PlayListExpanded(
-                                        playlistName: element.toString(),
+              child: SlideInRight(
+                duration: const Duration(milliseconds: 300),
+                child: ListView(
+                  physics: const BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    ...playLists.map(
+                      (element) => element
+                                  .toString()
+                                  .toLowerCase()
+                                  .contains(currenttext.toLowerCase()) &&
+                              element.toString() != "musics" &&
+                              element.toString() != "favourites"
+                          ? Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      PageTransition(
+                                        type: PageTransitionType.rightToLeft,
+                                        alignment: Alignment.bottomCenter,
+                                        child: PlayListExpanded(
+                                          playlistName: element.toString(),
+                                        ),
                                       ),
-                                    ),
-                                  );
+                                    );
 
-                                  MyFont.myClick();
-                                },
-                                child: Container(
-                                    margin: const EdgeInsets.all(10),
-                                    height: 100,
-                                    width: 100,
-                                    decoration: playListDecoration,
-                                    child: Center(
-                                      child: MyFont.montRegular10(
-                                        element.toString().toUpperCase(),
-                                      ),
-                                    )),
-                              ),
-                            ],
-                          )
-                        : Container(),
-                  ),
-                ],
+                                    MyFont.myClick();
+                                  },
+                                  child: Container(
+                                      margin: const EdgeInsets.all(10),
+                                      height: 100,
+                                      width: 100,
+                                      decoration: playListDecoration,
+                                      child: Center(
+                                        child: MyFont.montSemiBold13(
+                                          element.toString().toUpperCase(),
+                                        ),
+                                      )),
+                                ),
+                              ],
+                            )
+                          : Container(),
+                    ),
+                  ],
+                ),
               ),
             ),
             const SizedBox(

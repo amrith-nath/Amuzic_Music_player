@@ -4,6 +4,7 @@ import 'package:amuzic/fonts/fonts.dart';
 import 'package:amuzic/main.dart';
 import 'package:amuzic/widgets/settings_dlg.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -17,11 +18,11 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool isThemeSwitched = false;
+  late bool isThemeSwitched;
   late bool isNotifySwitched;
 
   setNotify() async {
-    isNotifySwitched = isNotifySwitched ? false : true;
+    isNotifySwitched = !isNotifySwitched;
     await preferences.setBool(
       "notification",
       isNotifySwitched,
@@ -32,12 +33,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   void initState() {
     isNotifySwitched = preferences.getBool("notification") ?? true;
+    isThemeSwitched = preferences.getBool("theme") ?? false;
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    setTheme() async {
+      isThemeSwitched = !isThemeSwitched;
+
+      DynamicTheme.of(context)!.setTheme(
+          isThemeSwitched ? MyTheme.darkThemeId : MyTheme.lightThemeId);
+      await preferences.setBool("theme", isThemeSwitched);
+    }
+
+    var theme = Theme.of(context);
+    log(theme.toString());
     var size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -48,7 +60,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       body: SingleChildScrollView(
         child: SlideInLeft(
-          duration: Duration(milliseconds: 500),
+          duration: const Duration(milliseconds: 500),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Column(
@@ -67,11 +79,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
-                      onTap: () {
+                      onTap: () async {
                         MyFont.myClick();
-                        setState(() {
-                          isThemeSwitched = isThemeSwitched ? false : true;
-                        });
+                        await setTheme();
+                        setState(() {});
                       },
                       child: Container(
                         height: size.width * 0.4,
@@ -118,10 +129,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 Switch(
                                   value: isThemeSwitched,
                                   onChanged: (value) {
-                                    setState(() {
-                                      isThemeSwitched =
-                                          isThemeSwitched ? false : true;
-                                    });
+                                    setTheme();
+                                    setState(() {});
                                   },
                                   inactiveTrackColor: Colors.grey,
                                   activeTrackColor: Colors.grey.shade800,
@@ -204,7 +213,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   value: isNotifySwitched,
                                   onChanged: (value) async {
                                     await setNotify();
-                                    log(isNotifySwitched.toString());
                                   },
                                   inactiveTrackColor: Colors.grey,
                                   activeTrackColor: Colors.grey.shade800,

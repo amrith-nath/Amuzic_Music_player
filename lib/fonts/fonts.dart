@@ -8,9 +8,9 @@ class MyFont {
     return Text(
       text,
       style: GoogleFonts.montserrat(
-          fontSize: 36,
-          fontWeight: FontWeight.bold,
-          textStyle: const TextStyle(color: Colors.black)),
+        fontSize: 36,
+        fontWeight: FontWeight.bold,
+      ),
     );
   }
 
@@ -18,9 +18,9 @@ class MyFont {
     return Text(
       text,
       style: GoogleFonts.montserrat(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          textStyle: const TextStyle(color: Colors.black)),
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
     );
   }
 
@@ -28,9 +28,9 @@ class MyFont {
     return Text(
       text,
       style: GoogleFonts.montserrat(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-          textStyle: const TextStyle(color: Colors.black)),
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+      ),
     );
   }
 
@@ -39,9 +39,10 @@ class MyFont {
       text,
       overflow: TextOverflow.ellipsis,
       style: GoogleFonts.montserrat(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-          textStyle: const TextStyle(color: Colors.black)),
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+        color: Colors.black,
+      ),
     );
   }
 
@@ -92,9 +93,6 @@ class MyFont {
       style: GoogleFonts.montserrat(
         fontSize: 13,
         fontWeight: FontWeight.w600,
-        textStyle: const TextStyle(
-          color: Colors.black,
-        ),
       ),
     );
   }
@@ -106,9 +104,6 @@ class MyFont {
       style: GoogleFonts.montserrat(
         fontSize: 16,
         fontWeight: FontWeight.w600,
-        textStyle: const TextStyle(
-          color: Colors.black,
-        ),
       ),
     );
   }
@@ -132,9 +127,9 @@ class MyFont {
       text,
       textAlign: TextAlign.start,
       style: GoogleFonts.montserrat(
-          fontSize: 10,
-          fontWeight: FontWeight.w600,
-          textStyle: const TextStyle(color: Colors.black)),
+        fontSize: 10,
+        fontWeight: FontWeight.w600,
+      ),
     );
   }
 
@@ -154,9 +149,9 @@ class MyFont {
       text,
       overflow: TextOverflow.ellipsis,
       style: GoogleFonts.montserrat(
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
-          textStyle: const TextStyle(color: Colors.black)),
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+      ),
     );
   }
 
@@ -186,9 +181,9 @@ class MyFont {
     return Text(
       text,
       style: GoogleFonts.montserrat(
-          fontSize: 8,
-          fontWeight: FontWeight.w600,
-          textStyle: const TextStyle(color: Colors.black)),
+        fontSize: 8,
+        fontWeight: FontWeight.w600,
+      ),
     );
   }
 
@@ -196,9 +191,9 @@ class MyFont {
     return Text(
       text,
       style: GoogleFonts.montserrat(
-          fontSize: 10,
-          fontWeight: FontWeight.w400,
-          textStyle: const TextStyle(color: Colors.black)),
+        fontSize: 10,
+        fontWeight: FontWeight.w400,
+      ),
     );
   }
 
@@ -206,9 +201,9 @@ class MyFont {
     return Text(
       text,
       style: GoogleFonts.montserrat(
-          fontSize: 10,
-          fontWeight: FontWeight.w300,
-          textStyle: const TextStyle(color: Colors.black)),
+        fontSize: 10,
+        fontWeight: FontWeight.w300,
+      ),
     );
   }
 
@@ -219,7 +214,6 @@ class MyFont {
       style: GoogleFonts.montserrat(
         fontSize: 10,
         fontWeight: FontWeight.w300,
-        textStyle: const TextStyle(color: Colors.black),
       ),
     );
   }
@@ -229,9 +223,9 @@ class MyFont {
       text,
       overflow: TextOverflow.ellipsis,
       style: GoogleFonts.montserrat(
-          fontSize: 13,
-          fontWeight: FontWeight.w500,
-          textStyle: const TextStyle(color: Colors.black)),
+        fontSize: 13,
+        fontWeight: FontWeight.w500,
+      ),
     );
   }
 
@@ -250,9 +244,9 @@ class MyFont {
     return Text(
       text,
       style: GoogleFonts.montserrat(
-          fontSize: 8,
-          fontWeight: FontWeight.w500,
-          textStyle: const TextStyle(color: Colors.black)),
+        fontSize: 8,
+        fontWeight: FontWeight.w500,
+      ),
     );
   }
 
