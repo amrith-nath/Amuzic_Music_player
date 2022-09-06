@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:amuzic/fonts/fonts.dart';
 import 'package:amuzic/main.dart';
+import 'package:amuzic/widgets/buttons.dart';
 import 'package:amuzic/widgets/settings_dlg.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:dynamic_themes/dynamic_themes.dart';
@@ -40,6 +41,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final lTheme = DynamicTheme.of(context)!.themeId == 0 ? true : false;
+
     setTheme() async {
       isThemeSwitched = !isThemeSwitched;
 
@@ -48,9 +51,44 @@ class _SettingsScreenState extends State<SettingsScreen> {
       await preferences.setBool("theme", isThemeSwitched);
     }
 
-    var theme = Theme.of(context);
-    log(theme.toString());
     var size = MediaQuery.of(context).size;
+
+    settingsTile({
+      required String text,
+      required IconData icon,
+    }) =>
+        GestureDetector(
+          onTap: () {
+            showDialog(
+                context: context,
+                builder: (context) => SettingsDlg(title: text));
+          },
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            width: double.infinity,
+            height: size.width * 0.2,
+            decoration: BoxDecoration(
+                color: lTheme ? Colors.white : MyTheme.d_base,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [MyFont.myBoxShadow()]),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Icon(
+                  icon,
+                  color: lTheme ? Colors.black : MyTheme.d_light,
+                ),
+                MyFont.montSemiBold16(text),
+                const Icon(
+                  Icons.circle,
+                  color: Colors.black,
+                  size: 4,
+                )
+              ],
+            ),
+          ),
+        );
+
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 30,
@@ -69,7 +107,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 Row(
                   children: [
                     MyFont.montBold24Red('S'),
-                    MyFont.montBold24('ETTINGS'),
+                    MyFont.montBold24('ETTINGS', context),
                   ],
                 ),
                 const SizedBox(
@@ -89,7 +127,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         width: size.width * 0.4,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            color: Colors.white,
+                            color: lTheme ? Colors.white : MyTheme.d_base,
                             boxShadow: [MyFont.myBoxShadow()]),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -100,7 +138,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 Container(
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(color: Colors.black)),
+                                      border: Border.all(
+                                          color: lTheme
+                                              ? Colors.black
+                                              : MyTheme.d_light)),
                                   child: Padding(
                                     padding: const EdgeInsets.all(2.0),
                                     child: isThemeSwitched
@@ -110,7 +151,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                             key: const Key('dark'),
                                             child: Icon(
                                               Icons.dark_mode,
-                                              color: MyTheme.blueDark,
+                                              color: lTheme
+                                                  ? MyTheme.blueDark
+                                                  : MyTheme.d_light,
                                               size: 30,
                                             ),
                                           )
@@ -171,7 +214,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         width: size.width * 0.4,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            color: Colors.white,
+                            color: lTheme ? Colors.white : MyTheme.d_base,
                             boxShadow: [MyFont.myBoxShadow()]),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -182,7 +225,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 Container(
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(color: Colors.black)),
+                                      border: Border.all(
+                                          color: lTheme
+                                              ? Colors.black
+                                              : MyTheme.d_light)),
                                   child: Padding(
                                     padding: const EdgeInsets.all(2.0),
                                     child: isNotifySwitched
@@ -193,7 +239,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                             child: Icon(
                                               Icons
                                                   .notifications_active_outlined,
-                                              color: MyTheme.blueDark,
+                                              color: MyTheme.d_light,
                                               size: 30,
                                             ),
                                           )
@@ -255,7 +301,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       width: double.infinity,
                       height: size.width * 0.2,
                       decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: lTheme ? Colors.white : MyTheme.d_base,
                           borderRadius: BorderRadius.circular(10),
                           boxShadow: [MyFont.myBoxShadow()]),
                       child: Row(
@@ -285,139 +331,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 const SizedBox(
                   height: 30,
                 ),
-                Builder(builder: (context) {
-                  return GestureDetector(
-                    onTap: () {
-                      showDialog(
-                          context: context,
-                          builder: (context) =>
-                              SettingsDlg(title: "TERMS & CONDITIONS"));
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      width: double.infinity,
-                      height: size.width * 0.2,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [MyFont.myBoxShadow()]),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Icon(
-                            Icons.assignment,
-                            color: Colors.black,
-                          ),
-                          MyFont.montSemiBold16('TERMS & CONDITIONS'),
-                          const Icon(
-                            Icons.circle,
-                            color: Colors.black,
-                            size: 4,
-                          )
-                        ],
-                      ),
-                    ),
-                  );
-                }),
+                settingsTile(
+                  text: 'TERMS & CONDITIONS',
+                  icon: Icons.assignment,
+                ),
                 const SizedBox(
                   height: 30,
                 ),
-                Builder(builder: (context) {
-                  return GestureDetector(
-                    onTap: () {
-                      showDialog(
-                          context: context,
-                          builder: (context) =>
-                              SettingsDlg(title: "PRIVACY POLICY"));
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      width: double.infinity,
-                      height: size.width * 0.2,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [MyFont.myBoxShadow()]),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Icon(
-                            Icons.policy,
-                            color: Colors.black,
-                          ),
-                          MyFont.montSemiBold16('PRIVACY POLICY'),
-                          const Icon(
-                            Icons.circle,
-                            color: Colors.black,
-                            size: 4,
-                          )
-                        ],
-                      ),
-                    ),
-                  );
-                }),
+                settingsTile(text: "PRIVACY POLICY", icon: Icons.policy),
                 const SizedBox(
                   height: 30,
                 ),
-                Builder(builder: (context) {
-                  return GestureDetector(
-                    onTap: () {
-                      showDialog(
-                          context: context,
-                          builder: (context) => SettingsDlg(title: "ABOUT US"));
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      width: double.infinity,
-                      height: size.width * 0.2,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [MyFont.myBoxShadow()]),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Icon(
-                            Icons.info,
-                            color: Colors.black,
-                          ),
-                          MyFont.montSemiBold16('ABOUT US'),
-                          const Icon(
-                            Icons.circle,
-                            color: Colors.black,
-                            size: 4,
-                          )
-                        ],
-                      ),
-                    ),
-                  );
-                }),
+                settingsTile(
+                  text: "ABOUT US",
+                  icon: Icons.info,
+                ),
                 const SizedBox(
                   height: 50,
                 ),
                 Center(
-                  child: GestureDetector(
-                    onTap: () {
-                      MyFont.myClick();
-                      Navigator.pop(context);
-                    },
-                    child: ZoomIn(
-                      // duration: Duration(milliseconds: 500),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: MyTheme.blueDark,
-                        ),
-                        width: 60,
-                        height: 60,
-                        child: const Icon(
-                          Icons.chevron_left_rounded,
-                          size: 30,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
+                  child: MyBackButton(context: context),
                 ),
               ],
             ),

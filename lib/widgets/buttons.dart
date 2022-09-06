@@ -4,14 +4,18 @@ import 'package:amuzic/fonts/fonts.dart';
 import 'package:amuzic/screens/search_screen.dart';
 import 'package:amuzic/theme/app_theme.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
 
 //*drawerButton//
 class DrawerButton extends StatelessWidget {
-  const DrawerButton({Key? key}) : super(key: key);
+  const DrawerButton({required this.context, Key? key}) : super(key: key);
+  final BuildContext context;
 
   @override
   Widget build(BuildContext context) {
+    final lTheme = DynamicTheme.of(context)!.themeId == 0 ? true : false;
+
     return SlideInLeft(
       duration: const Duration(milliseconds: 300),
       child: GestureDetector(
@@ -22,7 +26,7 @@ class DrawerButton extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: MyTheme.blueDark,
+            color: lTheme ? MyTheme.blueDark : MyTheme.d_light,
           ),
           width: 60,
           height: 60,
@@ -43,10 +47,13 @@ class DrawerButton extends StatelessWidget {
 //*search_button//
 
 class SearchButton extends StatelessWidget {
-  const SearchButton({Key? key}) : super(key: key);
+  const SearchButton({required this.context, Key? key}) : super(key: key);
+  final BuildContext context;
 
   @override
   Widget build(BuildContext context) {
+    final lTheme = DynamicTheme.of(context)!.themeId == 0 ? true : false;
+
     return SlideInLeft(
       duration: const Duration(milliseconds: 300),
       child: GestureDetector(
@@ -58,12 +65,50 @@ class SearchButton extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: MyTheme.blueDark,
+            color: lTheme ? MyTheme.blueDark : MyTheme.d_light,
           ),
           width: 60,
           height: 60,
           child: const Icon(
-            Icons.search_rounded,
+            Icons.manage_search_rounded,
+            size: 30,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+//*search_button//
+
+class MyBackButton extends StatelessWidget {
+  const MyBackButton({required this.context, this.icon, this.color, Key? key})
+      : super(key: key);
+  final BuildContext context;
+  final IconData? icon;
+  final Color? color;
+
+  @override
+  Widget build(BuildContext context) {
+    final lTheme = DynamicTheme.of(context)!.themeId == 0 ? true : false;
+
+    return GestureDetector(
+      onTap: () {
+        MyFont.myClick();
+        Navigator.pop(context);
+      },
+      child: SlideInRight(
+        // duration: Duration(milliseconds: 500),
+        child: Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: lTheme ? MyTheme.blueDark : color ?? MyTheme.d_light,
+          ),
+          width: 60,
+          height: 60,
+          child: Icon(
+            icon ?? Icons.chevron_left_rounded,
             size: 30,
             color: Colors.white,
           ),

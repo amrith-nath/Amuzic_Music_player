@@ -1,5 +1,7 @@
 import 'package:amuzic/database/database_model.dart';
 import 'package:amuzic/database/db_functions.dart';
+import 'package:amuzic/theme/app_theme.dart';
+import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -51,6 +53,8 @@ class _TopContainerPlayState extends State<TopContainerPlay> {
   List<LocalStorageSongs> dbSongs = [];
   @override
   Widget build(BuildContext context) {
+    final lTheme = DynamicTheme.of(context)!.themeId == 0 ? true : false;
+
     dbSongs = Mybox.getDbSongs();
 
     List? favourites = box!.get("favourites");
@@ -102,7 +106,9 @@ class _TopContainerPlayState extends State<TopContainerPlay> {
             child: Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: const Color.fromRGBO(43, 45, 66, 1),
+                color: lTheme
+                    ? const Color.fromRGBO(43, 45, 66, 1)
+                    : MyTheme.d_light,
                 boxShadow: [MyFont.myBoxShadow()],
               ),
               width: 60,
@@ -132,7 +138,9 @@ class _TopContainerPlayState extends State<TopContainerPlay> {
                   child: Container(
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: const Color.fromRGBO(43, 45, 66, 1),
+                      color: lTheme
+                          ? const Color.fromRGBO(43, 45, 66, 1)
+                          : MyTheme.d_light,
                       boxShadow: [MyFont.myBoxShadow()],
                     ),
                     width: 60,

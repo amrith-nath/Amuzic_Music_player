@@ -1,17 +1,14 @@
-import 'dart:developer';
-
 import 'package:amuzic/fonts/fonts.dart';
 import 'package:amuzic/screens/favourites_screen.dart';
 import 'package:amuzic/screens/playlist_screen.dart';
-import 'package:amuzic/screens/search_screen.dart';
+import 'package:amuzic/screens/recent_songs.dart';
 import 'package:amuzic/screens/settings_screen.dart';
 import 'package:amuzic/theme/app_theme.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
-
-import '../screens/home_screen.dart';
 
 class Mydrawer extends StatefulWidget {
   Mydrawer({required this.username, Key? key}) : super(key: key);
@@ -26,12 +23,61 @@ bool isThemeSwitched = false;
 
 class _MydrawerState extends State<Mydrawer> {
   @override
-  Widget build(BuildContext context) {
+  build(BuildContext context) {
+    final lTheme = DynamicTheme.of(context)!.themeId == 0 ? true : false;
+
+    TextStyle drawerTextStyle({
+      required bool theme,
+      required Color color1,
+      required Color color2,
+    }) =>
+        GoogleFonts.rajdhani(
+          fontSize: 64,
+          fontWeight: FontWeight.w500,
+          color: theme ? color1 : color2,
+        );
+
+    CircleAvatar drawerAvatar({
+      required Color color,
+      required IconData icon,
+    }) =>
+        CircleAvatar(
+          backgroundColor: color,
+          radius: 25,
+          child: Icon(
+            icon,
+            color: Colors.white,
+            size: 20,
+          ),
+        );
+
+    ListTile drawerListTile({
+      required CircleAvatar leading,
+      required String title,
+      required Widget child,
+    }) =>
+        ListTile(
+          onTap: () {
+            Navigator.push(
+                context,
+                PageTransition(
+                  duration: const Duration(milliseconds: 300),
+                  reverseDuration: const Duration(milliseconds: 300),
+                  type: PageTransitionType.rightToLeft,
+                  child: child,
+                ));
+          },
+          leading: leading,
+          title: MyFont.montSemiBold13(title),
+          trailing: const Icon(Icons.chevron_right_rounded),
+          style: ListTileStyle.drawer,
+        );
+
     return Drawer(
       // backgroundColor: const Color.fromRGBO(43, 45, 66, 1),
-      backgroundColor: const Color.fromRGBO(237, 242, 244, 1),
+      backgroundColor: lTheme ? MyTheme.light : MyTheme.d_blueDark,
       width: MediaQuery.of(context).size.width / 1.29,
-      elevation: 0,
+      elevation: 10,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(20),
@@ -43,8 +89,8 @@ class _MydrawerState extends State<Mydrawer> {
           SlideInDown(
             duration: const Duration(milliseconds: 400),
             child: DrawerHeader(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
+                decoration: BoxDecoration(
+                  color: lTheme ? Colors.white : MyTheme.d_base,
                 ),
                 child: Center(
                   child: Column(
@@ -55,19 +101,17 @@ class _MydrawerState extends State<Mydrawer> {
                         children: [
                           Text(
                             'AMUZ',
-                            style: GoogleFonts.rajdhani(
-                              fontSize: 64,
-                              fontWeight: FontWeight.w500,
-                              color: MyTheme.red,
-                            ),
+                            style: drawerTextStyle(
+                                theme: lTheme,
+                                color1: MyTheme.red,
+                                color2: MyTheme.d_red),
                           ),
                           Text(
                             'IC',
-                            style: GoogleFonts.rajdhani(
-                              fontSize: 64,
-                              fontWeight: FontWeight.w500,
-                              color: MyTheme.blueDark,
-                            ),
+                            style: drawerTextStyle(
+                                theme: lTheme,
+                                color1: MyTheme.blueDark,
+                                color2: MyTheme.base),
                           ),
                         ],
                       ),
@@ -80,19 +124,13 @@ class _MydrawerState extends State<Mydrawer> {
           ),
           SlideInLeft(
             duration: const Duration(milliseconds: 300),
-            child: ListTile(
-              leading: const CircleAvatar(
-                backgroundColor: Colors.green,
-                radius: 25,
-                child: Icon(
-                  Icons.mood_rounded,
-                  color: Colors.white,
-                  size: 20,
-                ),
+            child: drawerListTile(
+              child: const RecentScreen(),
+              leading: drawerAvatar(
+                color: MyTheme.blueDark,
+                icon: Icons.history,
               ),
-              title: MyFont.montSemiBold13('FIND YOUR MOOD'),
-              trailing: const Icon(Icons.chevron_right_rounded),
-              style: ListTileStyle.drawer,
+              title: 'RECENT SONGS',
             ),
           ),
           SizedBox(
@@ -100,29 +138,13 @@ class _MydrawerState extends State<Mydrawer> {
           ),
           SlideInLeft(
             duration: const Duration(milliseconds: 350),
-            child: ListTile(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    PageTransition(
-                      duration: const Duration(milliseconds: 300),
-                      reverseDuration: const Duration(milliseconds: 300),
-                      type: PageTransitionType.rightToLeft,
-                      child: const PlayListScreen(),
-                    ));
-              },
-              leading: const CircleAvatar(
-                backgroundColor: Color.fromRGBO(43, 45, 66, 1),
-                radius: 25,
-                child: Icon(
-                  Icons.library_music,
-                  color: Colors.white,
-                  size: 20,
-                ),
+            child: drawerListTile(
+              child: const PlayListScreen(),
+              leading: drawerAvatar(
+                color: const Color.fromRGBO(43, 45, 66, 1),
+                icon: Icons.library_music,
               ),
-              title: MyFont.montSemiBold13('PLAYLIST'),
-              trailing: const Icon(Icons.chevron_right_rounded),
-              style: ListTileStyle.drawer,
+              title: 'PLAYLIST',
             ),
           ),
           SizedBox(
@@ -130,79 +152,35 @@ class _MydrawerState extends State<Mydrawer> {
           ),
           SlideInLeft(
             duration: const Duration(milliseconds: 400),
-            child: ListTile(
-              onTap: () {
-                // Scaffold.of(context).closeDrawer();
-                Navigator.push(
-                    context,
-                    PageTransition(
-                      duration: const Duration(milliseconds: 300),
-                      reverseDuration: const Duration(milliseconds: 300),
-                      type: PageTransitionType.rightToLeft,
-                      child: const favourites(),
-                    ));
-                // Scaffold.of(context).closeDrawer();
-                // Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-                //   return favourites();
-                // }));
-                // Navigator.of(context).push(
-                //     MaterialPageRoute(builder: (ctx) => ScreenFavourites()));
-              },
-              leading: const CircleAvatar(
-                backgroundColor: Color.fromRGBO(198, 31, 38, 1),
-                radius: 25,
-                child: Icon(
-                  Icons.favorite,
-                  color: Colors.white,
-                  size: 20,
-                ),
+            child: drawerListTile(
+              child: const favourites(),
+              leading: drawerAvatar(
+                color: const Color.fromRGBO(198, 31, 38, 1),
+                icon: Icons.favorite,
               ),
-              title: MyFont.montSemiBold13('FAVOURITES'),
-              style: ListTileStyle.drawer,
-              trailing: const Icon(Icons.chevron_right_rounded),
+              title: 'FAVOURITES',
             ),
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height / 30,
           ),
-          const Divider(
-            color: Colors.black45,
-          ),
+          const Divider(),
           SizedBox(
             height: MediaQuery.of(context).size.height / 200,
           ),
           SlideInLeft(
             duration: const Duration(milliseconds: 400),
-            child: ListTile(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    PageTransition(
-                      type: PageTransitionType.rightToLeftJoined,
-                      childCurrent:
-                          HomeScreen(userName: 'userName', allSongs: const []),
-                      duration: const Duration(milliseconds: 350),
-                      child: const SettingsScreen(),
-                    ));
-              },
-              leading: const CircleAvatar(
-                backgroundColor: Colors.black54,
-                radius: 20,
-                child: Icon(
-                  Icons.settings_outlined,
-                  color: Colors.white,
-                  size: 25,
-                ),
+            child: drawerListTile(
+              child: const SettingsScreen(),
+              leading: drawerAvatar(
+                color: Colors.black54,
+                icon: Icons.settings_outlined,
               ),
-              title: MyFont.montMedium13('Settings'),
-              style: ListTileStyle.drawer,
+              title: 'Settings',
             ),
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height / 200,
-          ),
-          const Divider(
-            color: Colors.black45,
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height / 5,
@@ -219,9 +197,7 @@ class _MydrawerState extends State<Mydrawer> {
             duration: const Duration(milliseconds: 400),
             child: const Padding(
               padding: EdgeInsets.symmetric(vertical: 8, horizontal: 50),
-              child: Divider(
-                color: Colors.black54,
-              ),
+              child: Divider(),
             ),
           )
         ],

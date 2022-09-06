@@ -1,3 +1,4 @@
+import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
@@ -28,15 +29,6 @@ class _SearchScreenState extends State<SearchScreen> {
   int flag = 0;
   int flagSong = 0;
 
-  var playListDecoration = BoxDecoration(
-    color: Colors.white,
-    shape: BoxShape.circle,
-    border: Border.all(style: BorderStyle.solid, color: MyTheme.red, width: 2),
-    boxShadow: [
-      MyTheme.myBoxShadow(),
-    ],
-  );
-
   @override
   void initState() {
     playLists = searchBox!.keys.toList();
@@ -52,6 +44,18 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    final lTheme = DynamicTheme.of(context)!.themeId == 0 ? true : false;
+
+    var playListDecoration = BoxDecoration(
+      color: lTheme ? Colors.white : MyTheme.d_base,
+      shape: BoxShape.circle,
+      border:
+          Border.all(style: BorderStyle.solid, color: MyTheme.red, width: 2),
+      boxShadow: [
+        MyTheme.myBoxShadow(),
+      ],
+    );
+
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -67,7 +71,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   MyFont.montBold24Red('S'),
-                  MyFont.montBold24('EARCH'),
+                  MyFont.montBold24('EARCH', context),
                 ],
               ),
             ),
@@ -89,7 +93,9 @@ class _SearchScreenState extends State<SearchScreen> {
                                   width: 0, style: BorderStyle.none),
                               borderRadius: BorderRadius.circular(10)),
                           filled: true,
-                          fillColor: const Color.fromRGBO(217, 217, 217, 1),
+                          fillColor: lTheme
+                              ? const Color.fromRGBO(217, 217, 217, 1)
+                              : MyTheme.d_light,
                         ),
                         onChanged: (value) {
                           setState(() {
@@ -115,12 +121,13 @@ class _SearchScreenState extends State<SearchScreen> {
                       child: Container(
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: MyTheme.blueDark,
+                          color: lTheme ? MyTheme.blueDark : MyTheme.d_base,
                         ),
                         width: 60,
                         height: 60,
-                        child: const Icon(
+                        child: Icon(
                           Icons.close_rounded,
+                          color: lTheme ? MyTheme.blueDark : Colors.grey,
                           size: 30,
                         ),
                       ),
@@ -133,10 +140,10 @@ class _SearchScreenState extends State<SearchScreen> {
                 ? MyFont.montBold18("PlayLists")
                 : MyFont.montMedium13("No PlayLists found"),
             const Divider(),
-            Expanded(
-              flex: 2,
-              child: SlideInRight(
-                duration: const Duration(milliseconds: 300),
+            SlideInRight(
+              duration: const Duration(milliseconds: 300),
+              child: SizedBox(
+                height: 120,
                 child: ListView(
                   physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
@@ -187,15 +194,11 @@ class _SearchScreenState extends State<SearchScreen> {
             const SizedBox(
               height: 10,
             ),
-            const SizedBox(
-              height: 20,
-            ),
             songs.isNotEmpty && flagSong != 0
                 ? MyFont.montBold18("Songs")
                 : MyFont.montMedium13("No Songs found"),
             const Divider(),
             Expanded(
-                flex: 6,
                 child: currenttext.isNotEmpty
                     ? Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),

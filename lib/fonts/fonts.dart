@@ -1,4 +1,5 @@
 import 'package:amuzic/theme/app_theme.dart';
+import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -34,14 +35,15 @@ class MyFont {
     );
   }
 
-  static montBold24(String text) {
+  static montBold24(String text, BuildContext context) {
+    final theme = DynamicTheme.of(context)!.themeId == 0 ? true : false;
     return Text(
       text,
       overflow: TextOverflow.ellipsis,
       style: GoogleFonts.montserrat(
         fontSize: 24,
         fontWeight: FontWeight.bold,
-        color: Colors.black,
+        color: theme ? Colors.black : Colors.white,
       ),
     );
   }

@@ -1,4 +1,6 @@
+import 'package:amuzic/widgets/buttons.dart';
 import 'package:amuzic/widgets/song_tile.dart';
+import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:amuzic/database/db_functions.dart';
 import 'package:amuzic/fonts/fonts.dart';
@@ -17,6 +19,8 @@ class favourites extends StatefulWidget {
 class _favouritesState extends State<favourites> {
   @override
   Widget build(BuildContext context) {
+    final lTheme = DynamicTheme.of(context)!.themeId == 0 ? true : false;
+
     // List<LocalStorageSongs>? dbSongs = [];
     List<Audio> favSongsTemp = [];
 
@@ -24,7 +28,6 @@ class _favouritesState extends State<favourites> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.transparent,
         toolbarHeight: 10,
         elevation: 0,
       ),
@@ -37,33 +40,14 @@ class _favouritesState extends State<favourites> {
               leadingWidth: 100,
               elevation: 0,
               stretch: true,
-              backgroundColor: MyTheme.light,
+              backgroundColor: lTheme ? MyTheme.light : MyTheme.d_blueDark,
               leading: Row(
                 children: [
                   const SizedBox(
                     width: 20,
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      MyFont.myClick();
-                      Navigator.pop(context);
-                    },
-                    child: SlideInRight(
-                      // duration: Duration(milliseconds: 500),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: MyTheme.blueDark,
-                        ),
-                        width: 60,
-                        height: 60,
-                        child: const Icon(
-                          Icons.chevron_left_rounded,
-                          size: 30,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
+                  MyBackButton(
+                    context: context,
                   ),
                 ],
               ),
@@ -78,7 +62,7 @@ class _favouritesState extends State<favourites> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       MyFont.montBold24Red('FAV'),
-                      MyFont.montBold24('OURITES'),
+                      MyFont.montBold24('OURITES', context),
                     ],
                   ),
                 ),

@@ -3,7 +3,9 @@ import 'package:amuzic/fonts/fonts.dart';
 import 'package:amuzic/screens/playlist_expanded.dart';
 import 'package:amuzic/theme/app_theme.dart';
 import 'package:amuzic/widgets/add_create_edit_playlist.dart';
+import 'package:amuzic/widgets/buttons.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:page_transition/page_transition.dart';
@@ -21,6 +23,8 @@ class _PlayListScreenState extends State<PlayListScreen> {
   String? playlistName = '';
   @override
   Widget build(BuildContext context) {
+    final lTheme = DynamicTheme.of(context)!.themeId == 0 ? true : false;
+
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 10,
@@ -37,34 +41,13 @@ class _PlayListScreenState extends State<PlayListScreen> {
               leadingWidth: 100,
               elevation: 0,
               stretch: true,
-              backgroundColor: MyTheme.light,
+              backgroundColor: lTheme ? MyTheme.light : MyTheme.d_blueDark,
               leading: Row(
                 children: [
                   const SizedBox(
                     width: 20,
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      MyFont.myClick();
-                      Navigator.pop(context);
-                    },
-                    child: SlideInRight(
-                      // duration: Duration(milliseconds: 500),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: MyTheme.blueDark,
-                        ),
-                        width: 60,
-                        height: 60,
-                        child: const Icon(
-                          Icons.chevron_left_rounded,
-                          size: 30,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
+                  MyBackButton(context: context),
                 ],
               ),
               expandedHeight: 200,
@@ -78,7 +61,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       MyFont.montBold24Red('PLAY'),
-                      MyFont.montBold24('LISTS'),
+                      MyFont.montBold24('LISTS', context),
                     ],
                   ),
                 ),
@@ -127,7 +110,9 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                                   top: 30),
                                               height: 100,
                                               decoration: BoxDecoration(
-                                                color: Colors.white,
+                                                color: lTheme
+                                                    ? Colors.white
+                                                    : MyTheme.d_base,
                                                 borderRadius:
                                                     BorderRadius.circular(15),
                                                 boxShadow: [
@@ -163,10 +148,13 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                                         boxShadow: [
                                                           MyTheme.myBoxShadow()
                                                         ]),
-                                                    child: const Icon(
+                                                    child: Icon(
                                                       Icons
                                                           .playlist_play_rounded,
                                                       size: 40,
+                                                      color: lTheme
+                                                          ? MyTheme.blueDark
+                                                          : MyTheme.d_base,
                                                     ),
                                                   ),
                                                   MyFont.montSemiBold16(
@@ -185,8 +173,9 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                                               builder:
                                                                   (context) =>
                                                                       AlertDialog(
-                                                                        backgroundColor:
-                                                                            MyTheme.blueDark,
+                                                                        backgroundColor: lTheme
+                                                                            ? MyTheme.blueDark
+                                                                            : MyTheme.d_blueDark,
                                                                         content:
                                                                             MyFont.montMedium13White("Are you sure you want to delete?"),
                                                                         actions: [
@@ -225,10 +214,12 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                                                         ],
                                                                       ));
                                                         },
-                                                        icon: const Icon(
+                                                        icon: Icon(
                                                           Icons.delete,
                                                           size: 20,
-                                                          color: Colors.black,
+                                                          color: lTheme
+                                                              ? Colors.black
+                                                              : MyTheme.d_light,
                                                         ),
                                                       ),
                                                       IconButton(
@@ -241,10 +232,12 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                                                           playlists[
                                                                               index]));
                                                         },
-                                                        icon: const Icon(
+                                                        icon: Icon(
                                                           Icons
                                                               .edit_note_rounded,
-                                                          color: Colors.black,
+                                                          color: lTheme
+                                                              ? Colors.black
+                                                              : MyTheme.d_light,
                                                         ),
                                                       )
                                                     ],
@@ -264,13 +257,15 @@ class _PlayListScreenState extends State<PlayListScreen> {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(right: 40, bottom: 40),
         child: FloatingActionButton(
+          backgroundColor: lTheme ? MyTheme.blueDark : MyTheme.d_dark,
           onPressed: () {
             showDialog(
                 context: context, builder: (context) => CreatePlaylistDlg());
           },
-          child: const Icon(
+          child: Icon(
             Icons.add,
             size: 40,
+            color: MyTheme.light,
           ),
         ),
       ),

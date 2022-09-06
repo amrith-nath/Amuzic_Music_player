@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:amuzic/database/db_functions.dart';
 import 'package:amuzic/fonts/fonts.dart';
 import 'package:amuzic/theme/app_theme.dart';
 import 'package:amuzic/widgets/song_tile.dart';
 import 'package:amuzic/widgets/buttons.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
 
 class MyHome extends StatefulWidget {
@@ -33,45 +36,54 @@ class _MyHomeState extends State<MyHome> {
   final AssetsAudioPlayer myPlayer = AssetsAudioPlayer.withId('0');
   @override
   Widget build(BuildContext context) {
+    final lTheme = DynamicTheme.of(context)!.themeId == 0 ? true : false;
+    log(lTheme.toString());
+
     return NestedScrollView(
       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrlled) {
         return <Widget>[
-          SliverAppBar(
-            collapsedHeight: 65,
-            scrolledUnderElevation: 3,
-            leadingWidth: 100,
-            elevation: 0,
-            stretch: true,
-            backgroundColor: MyTheme.light,
-            leading: Row(
-              children: const [
-                SizedBox(
-                  width: 20,
-                ),
-                DrawerButton(),
-              ],
-            ),
-            actions: const [
-              SearchButton(),
-              SizedBox(
-                width: 20,
-              )
-            ],
-            expandedHeight: 200,
-            floating: false,
-            pinned: true,
-            flexibleSpace: FlexibleSpaceBar(
-              collapseMode: CollapseMode.parallax,
-              centerTitle: true,
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+          Builder(builder: (context) {
+            return SliverAppBar(
+              collapsedHeight: 65,
+              scrolledUnderElevation: 3,
+              leadingWidth: 100,
+              elevation: 0,
+              stretch: true,
+              backgroundColor: lTheme ? MyTheme.light : MyTheme.d_blueDark,
+              leading: Row(
                 children: [
-                  MyFont.montBold24Red('H'),
-                  MyFont.montBold24('OME'),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  DrawerButton(
+                    context: context,
+                  )
                 ],
               ),
-            ),
-          )
+              actions: [
+                SearchButton(
+                  context: context,
+                ),
+                const SizedBox(
+                  width: 20,
+                )
+              ],
+              expandedHeight: 200,
+              floating: false,
+              pinned: true,
+              flexibleSpace: FlexibleSpaceBar(
+                collapseMode: CollapseMode.parallax,
+                centerTitle: true,
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    MyFont.montBold24Red('H'),
+                    MyFont.montBold24('OME', context),
+                  ],
+                ),
+              ),
+            );
+          })
         ];
       },
       body: RefreshIndicator(

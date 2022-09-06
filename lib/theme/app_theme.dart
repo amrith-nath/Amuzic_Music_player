@@ -14,11 +14,11 @@ class MyTheme {
   static var base = Colors.white;
   //
   //*Colors-dark//
-  static var d_red = const Color.fromRGBO(198, 31, 38, 1);
-  static var d_blueDark = const Color.fromRGBO(15, 52, 96, 1);
-  static var d_light = const Color.fromRGBO(83, 52, 131, 1);
-  static var d_dark = const Color.fromRGBO(22, 33, 62, 1);
-  static var d_base = Colors.black;
+  static var d_red = const Color(0xFFd1342f);
+  static var d_blueDark = const Color(0xFF1a181a);
+  static var d_light = const Color(0xFF505050);
+  static var d_dark = const Color(0xFF434038);
+  static var d_base = const Color(0xFF0a0a0a);
 //
 
   static const int lightThemeId = 0;
@@ -34,6 +34,8 @@ class MyTheme {
 
 //*light---------->
   static var lightTheme = ThemeData(
+    appBarTheme: AppBarTheme(color: MyTheme.light),
+    colorScheme: const ColorScheme.light(),
     bottomSheetTheme:
         BottomSheetThemeData(backgroundColor: Colors.black.withOpacity(0)),
     primarySwatch: Colors.red,
@@ -55,9 +57,11 @@ class MyTheme {
   //
   //*dark---------->
   static var darkTheme = ThemeData(
+    appBarTheme: AppBarTheme(color: MyTheme.d_blueDark),
+    colorScheme: const ColorScheme.dark(),
     primarySwatch: Colors.red,
-    backgroundColor: d_dark,
-    scaffoldBackgroundColor: d_dark,
+    backgroundColor: d_blueDark,
+    scaffoldBackgroundColor: d_blueDark,
     iconTheme: IconThemeData(
       color: blueDark,
     ),
@@ -67,8 +71,8 @@ class MyTheme {
         color: d_base,
       ),
     ),
-    dividerColor: d_base,
-    dividerTheme: DividerThemeData(color: d_base),
+    dividerColor: d_light,
+    dividerTheme: DividerThemeData(color: d_light),
   );
   //
   //*Fonts//

@@ -4,6 +4,7 @@ import 'package:amuzic/theme/app_theme.dart';
 import 'package:amuzic/widgets/song_tile.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -15,6 +16,8 @@ class PlayListExpanded extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final lTheme = DynamicTheme.of(context)!.themeId == 0 ? true : false;
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -31,7 +34,7 @@ class PlayListExpanded extends StatelessWidget {
               leadingWidth: 100,
               elevation: 0,
               stretch: true,
-              backgroundColor: MyTheme.light,
+              backgroundColor: lTheme ? MyTheme.light : MyTheme.d_blueDark,
               leading: Row(
                 children: [
                   const SizedBox(
@@ -71,7 +74,7 @@ class PlayListExpanded extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      MyFont.montBold24(playlistName),
+                      MyFont.montBold24(playlistName, context),
                     ],
                   ),
                 ),

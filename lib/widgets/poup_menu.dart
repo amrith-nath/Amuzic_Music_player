@@ -4,6 +4,7 @@ import 'package:amuzic/fonts/fonts.dart';
 import 'package:amuzic/theme/app_theme.dart';
 import 'package:amuzic/widgets/add_create_edit_playlist.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -24,6 +25,8 @@ class _PopUpMenuState extends State<PopUpMenu> {
 
   @override
   Widget build(BuildContext context) {
+    final lTheme = DynamicTheme.of(context)!.themeId == 0 ? true : false;
+
     dbSongs = Mybox.getDbSongs();
     List? favourites = box!.get("favourites");
     final temp = Mybox.getDbSongWithId(songs: dbSongs, songId: widget.songId);
@@ -34,7 +37,7 @@ class _PopUpMenuState extends State<PopUpMenu> {
           return PopupMenuButton(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            color: MyTheme.blueDark,
+            color: lTheme ? MyTheme.blueDark : MyTheme.d_blueDark,
             itemBuilder: ((context) => [
                   favourites!
                           .where((element) =>
@@ -116,11 +119,11 @@ class _PopUpMenuState extends State<PopUpMenu> {
                     .isEmpty
                 ? Icon(
                     Icons.more_vert,
-                    color: MyTheme.blueDark,
+                    color: lTheme ? MyTheme.blueDark : MyTheme.light,
                   )
-                : const Icon(
+                : Icon(
                     Icons.favorite,
-                    color: Colors.red,
+                    color: lTheme ? MyTheme.red : MyTheme.d_red,
                   ),
           );
         });

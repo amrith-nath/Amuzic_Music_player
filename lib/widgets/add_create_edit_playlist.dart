@@ -3,6 +3,7 @@ import 'package:amuzic/database/db_functions.dart';
 import 'package:amuzic/fonts/fonts.dart';
 import 'package:amuzic/theme/app_theme.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:xen_popup_card/xen_card.dart';
 
@@ -13,13 +14,16 @@ class AddToPlaylist extends StatelessWidget {
   List<dynamic>? playlistSongs = [];
   @override
   Widget build(BuildContext context) {
+    final lTheme = DynamicTheme.of(context)!.themeId == 0 ? true : false;
+
     final box = Mybox.getinstance();
     playlistsNames = box!.keys.toList();
     return SlideInUp(
       duration: const Duration(milliseconds: 300),
       child: XenPopupCard(
+        cardBgColor: lTheme ? MyTheme.light : MyTheme.d_light,
         appBar: XenCardAppBar(
-            color: MyTheme.blueDark,
+            color: lTheme ? MyTheme.blueDark : MyTheme.d_blueDark,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -27,7 +31,8 @@ class AddToPlaylist extends StatelessWidget {
               ],
             )),
         gutter: XenCardGutter(
-          child: SizedBox(
+          child: Container(
+            color: lTheme ? MyTheme.light : MyTheme.d_blueDark,
             height: 50,
             width: double.infinity,
             child: Center(
@@ -46,7 +51,7 @@ class AddToPlaylist extends StatelessWidget {
                     label: MyFont.montBold16("Create New Playlist"))),
           ),
         ),
-        cardBgColor: MyTheme.light,
+
         //todo try spread operated list generation
 
         // body: ListView(
@@ -113,7 +118,7 @@ class AddToPlaylist extends StatelessWidget {
                         Icons.playlist_play_rounded,
                         color: Colors.white,
                       ),
-                      tileColor: MyTheme.blueDark,
+                      tileColor: lTheme ? MyTheme.blueDark : MyTheme.d_blueDark,
                       title: MyFont.montBold16White(
                         playlistsNames[index],
                       ),
@@ -140,10 +145,12 @@ class CreatePlaylistDlg extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final box = Mybox.getinstance();
+    final lTheme = DynamicTheme.of(context)!.themeId == 0 ? true : false;
 
     return SlideInUp(
       duration: const Duration(milliseconds: 300),
       child: AlertDialog(
+        backgroundColor: lTheme ? MyTheme.light : MyTheme.d_blueDark,
         title: Center(
           child: Row(children: [
             MyFont.montBold16("Enter Name for The "),
@@ -169,7 +176,9 @@ class CreatePlaylistDlg extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               filled: true,
-              fillColor: const Color.fromRGBO(217, 217, 217, 1),
+              fillColor: lTheme
+                  ? const Color.fromRGBO(217, 217, 217, 1)
+                  : MyTheme.d_light,
             ),
             style: const TextStyle(
               decoration: TextDecoration.none,
@@ -217,6 +226,8 @@ class PlayListEdit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final lTheme = DynamicTheme.of(context)!.themeId == 0 ? true : false;
+
     return SlideInUp(
       duration: const Duration(milliseconds: 300),
       child: AlertDialog(
@@ -246,7 +257,9 @@ class PlayListEdit extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               filled: true,
-              fillColor: const Color.fromRGBO(217, 217, 217, 1),
+              fillColor: lTheme
+                  ? const Color.fromRGBO(217, 217, 217, 1)
+                  : MyTheme.d_blueDark,
             ),
             style: const TextStyle(
               decoration: TextDecoration.none,

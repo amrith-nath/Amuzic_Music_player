@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:amuzic/database/db_functions.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:amuzic/database/database_model.dart';
@@ -20,11 +21,14 @@ bool islogin = false;
 var username = '';
 
 class _SplashSreenState extends State<SplashSreen> {
+  late bool lTheme;
   @override
   void initState() {
     fetchSongs();
     //
     navigateFromSplash(context);
+    //
+    lTheme = preferences.getBool("theme") ?? true;
     //implement initState
     super.initState();
   }
@@ -52,7 +56,8 @@ class _SplashSreenState extends State<SplashSreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               MyTheme.splashText(text: 'AMUZ', color: MyTheme.red),
-              MyTheme.splashText(text: 'IC', color: MyTheme.blueDark),
+              MyTheme.splashText(
+                  text: 'IC', color: !lTheme ? MyTheme.blueDark : Colors.white),
             ],
           ),
           const SizedBox(

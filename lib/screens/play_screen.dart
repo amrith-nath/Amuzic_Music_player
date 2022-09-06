@@ -8,6 +8,7 @@ import 'package:amuzic/widgets/seek_bar.dart';
 import 'package:amuzic/widgets/top_container.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
 
 class PlayScreen extends StatefulWidget {
@@ -30,6 +31,8 @@ class _PlayScreenState extends State<PlayScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final lTheme = DynamicTheme.of(context)!.themeId == 0 ? true : false;
+
     var size = MediaQuery.of(context).size;
     return assetAudioPlayer.builderCurrent(
         builder: (BuildContext context, Playing playing) {
@@ -187,7 +190,9 @@ class _PlayScreenState extends State<PlayScreen> {
                                 },
                                 icon: Icon(
                                   Icons.rotate_left_outlined,
-                                  color: MyTheme.blueDark,
+                                  color: lTheme
+                                      ? MyTheme.blueDark
+                                      : Colors.grey.shade400,
                                 ),
                               ),
                             ),
@@ -199,7 +204,9 @@ class _PlayScreenState extends State<PlayScreen> {
                                 },
                                 icon: Icon(
                                   Icons.skip_previous_rounded,
-                                  color: MyTheme.blueDark,
+                                  color: lTheme
+                                      ? MyTheme.blueDark
+                                      : Colors.grey.shade400,
                                 ),
                               ),
                             ),
@@ -215,7 +222,9 @@ class _PlayScreenState extends State<PlayScreen> {
                                     isPaying
                                         ? Icons.pause_circle_outline
                                         : Icons.play_circle_filled_rounded,
-                                    color: MyTheme.blueDark,
+                                    color: lTheme
+                                        ? MyTheme.blueDark
+                                        : Colors.grey.shade400,
                                   ),
                                 );
                               },
@@ -228,7 +237,9 @@ class _PlayScreenState extends State<PlayScreen> {
                                 },
                                 icon: Icon(
                                   Icons.skip_next_rounded,
-                                  color: MyTheme.blueDark,
+                                  color: lTheme
+                                      ? MyTheme.blueDark
+                                      : Colors.grey.shade400,
                                 ),
                               ),
                             ),
@@ -241,7 +252,9 @@ class _PlayScreenState extends State<PlayScreen> {
                                 },
                                 icon: Icon(
                                   Icons.rotate_right_outlined,
-                                  color: MyTheme.blueDark,
+                                  color: lTheme
+                                      ? MyTheme.blueDark
+                                      : Colors.grey.shade400,
                                 ),
                               ),
                             ),

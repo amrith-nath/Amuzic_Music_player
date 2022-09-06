@@ -5,6 +5,7 @@ import 'package:amuzic/theme/app_theme.dart';
 import 'package:amuzic/widgets/seek_bar.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -47,6 +48,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    final lTheme = DynamicTheme.of(context)!.themeId == 0 ? true : false;
 
     return assetAudioPlayer.builderCurrent(
         builder: (BuildContext context, Playing playing) {
@@ -91,7 +93,9 @@ class _MiniPlayerState extends State<MiniPlayer> {
                       height: 170,
                       width: MediaQuery.of(context).size.width * 0.85,
                       decoration: BoxDecoration(
-                        color: Colors.grey.shade400.withOpacity(0.5),
+                        color: lTheme
+                            ? Colors.grey.shade400.withOpacity(0.5)
+                            : Colors.grey.shade900.withOpacity(0.5),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,7 +116,9 @@ class _MiniPlayerState extends State<MiniPlayer> {
                               left: MediaQuery.of(context).size.height / 8,
                             ),
                             child: MyFont.montSemiBold10grey(
-                              nowSong.metas.title!.toUpperCase(),
+                              nowSong.metas.artist!.toUpperCase() == '<UNKNOWN>'
+                                  ? "Unknown Artist"
+                                  : nowSong.metas.artist!.toUpperCase(),
                             ),
                           ),
                           Container(
@@ -139,7 +145,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
                   MyTheme.myBoxShadow(),
                   MyTheme.myBoxShadow(),
                 ],
-                color: MyTheme.blueDark,
+                color: lTheme ? MyTheme.blueDark : MyTheme.d_light,
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
               ),
               child: Row(
@@ -159,7 +165,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
                           },
                           icon: Icon(
                             Icons.skip_previous_rounded,
-                            color: MyTheme.light,
+                            color: lTheme ? MyTheme.light : MyTheme.d_base,
                           ),
                         ),
                         PlayerBuilder.isPlaying(
@@ -174,7 +180,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
                                 isPaying
                                     ? Icons.pause_circle_outline
                                     : Icons.play_circle_filled_rounded,
-                                color: MyTheme.light,
+                                color: lTheme ? MyTheme.light : MyTheme.d_base,
                               ),
                             );
                           },
@@ -186,7 +192,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
                           },
                           icon: Icon(
                             Icons.skip_next_rounded,
-                            color: MyTheme.light,
+                            color: lTheme ? MyTheme.light : MyTheme.d_base,
                           ),
                         ),
                       ],
@@ -198,11 +204,11 @@ class _MiniPlayerState extends State<MiniPlayer> {
                       width: 40,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: MyTheme.light,
+                        color: lTheme ? MyTheme.light : MyTheme.d_base,
                       ),
                       child: Icon(
                         Icons.speaker,
-                        color: MyTheme.blueDark,
+                        color: lTheme ? MyTheme.blueDark : MyTheme.d_light,
                       ),
                     ),
                   ),

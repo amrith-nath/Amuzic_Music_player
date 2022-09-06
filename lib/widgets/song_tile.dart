@@ -7,8 +7,8 @@ import 'package:amuzic/widgets/poup_menu.dart';
 import 'package:amuzic/widgets/visualizer.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
-import 'package:mini_music_visualizer/mini_music_visualizer.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class SongTile extends StatefulWidget {
@@ -33,6 +33,8 @@ class _SongTileState extends State<SongTile> {
 
   @override
   Widget build(BuildContext context) {
+    final lTheme = DynamicTheme.of(context)!.themeId == 0 ? true : false;
+
     var width = MediaQuery.of(context).size.width;
     log(width.toString());
     return GestureDetector(
@@ -42,6 +44,7 @@ class _SongTileState extends State<SongTile> {
         //       index: index,
         //     ));
         showBottomSheet(
+          backgroundColor: Colors.transparent,
           context: context,
           builder: (context) => MiniPlayer(
             fullSong: widget.songs,
@@ -69,7 +72,7 @@ class _SongTileState extends State<SongTile> {
           Container(
             clipBehavior: Clip.hardEdge,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: lTheme ? Colors.white : MyTheme.d_base,
               borderRadius: BorderRadius.circular(10),
               boxShadow: [MyFont.myBoxShadow()],
             ),
@@ -153,7 +156,7 @@ class _SongTileState extends State<SongTile> {
                           width: 40,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: MyTheme.light,
+                            color: lTheme ? MyTheme.light : MyTheme.d_blueDark,
                           ),
                           // child: const Icon(
                           //   Icons.more_vert_outlined,
