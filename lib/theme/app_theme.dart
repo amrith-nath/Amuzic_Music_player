@@ -61,7 +61,7 @@ class MyTheme {
     colorScheme: const ColorScheme.dark(),
     primarySwatch: Colors.red,
     backgroundColor: d_blueDark,
-    scaffoldBackgroundColor: d_blueDark,
+    scaffoldBackgroundColor: d_light,
     iconTheme: IconThemeData(
       color: blueDark,
     ),

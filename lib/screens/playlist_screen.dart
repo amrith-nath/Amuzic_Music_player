@@ -30,7 +30,6 @@ class _PlayListScreenState extends State<PlayListScreen> {
         toolbarHeight: 10,
         automaticallyImplyLeading: false,
         elevation: 0,
-        backgroundColor: Colors.transparent,
       ),
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrlled) {
@@ -112,7 +111,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                               decoration: BoxDecoration(
                                                 color: lTheme
                                                     ? Colors.white
-                                                    : MyTheme.d_base,
+                                                    : MyTheme.d_blueDark,
                                                 borderRadius:
                                                     BorderRadius.circular(15),
                                                 boxShadow: [

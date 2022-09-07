@@ -90,14 +90,12 @@ class _favouritesState extends State<favourites> {
                         physics: const BouncingScrollPhysics(),
                         itemCount: favSongs.length,
                         separatorBuilder: (BuildContext context, int index) {
-                          return const SizedBox(
-                            height: 20,
-                          );
+                          return const SizedBox();
                         },
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
+                              padding: const EdgeInsets.only(
+                                  left: 20, right: 20, top: 20),
                               child: SongTile(
                                 favSongs[index].id!,
                                 songs: favSongsTemp,

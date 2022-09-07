@@ -1,6 +1,7 @@
 import 'package:amuzic/database/db_functions.dart';
 import 'package:amuzic/fonts/fonts.dart';
 import 'package:amuzic/theme/app_theme.dart';
+import 'package:amuzic/widgets/buttons.dart';
 import 'package:amuzic/widgets/song_tile.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
@@ -21,7 +22,6 @@ class PlayListExpanded extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.transparent,
         toolbarHeight: 10,
         elevation: 0,
       ),
@@ -30,7 +30,7 @@ class PlayListExpanded extends StatelessWidget {
           return <Widget>[
             SliverAppBar(
               collapsedHeight: 65,
-              scrolledUnderElevation: 3,
+              scrolledUnderElevation: 5,
               leadingWidth: 100,
               elevation: 0,
               stretch: true,
@@ -40,28 +40,7 @@ class PlayListExpanded extends StatelessWidget {
                   const SizedBox(
                     width: 20,
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      MyFont.myClick();
-                      Navigator.pop(context);
-                    },
-                    child: SlideInRight(
-                      // duration: Duration(milliseconds: 500),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: MyTheme.blueDark,
-                        ),
-                        width: 60,
-                        height: 60,
-                        child: const Icon(
-                          Icons.chevron_left_rounded,
-                          size: 30,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
+                  MyBackButton(context: context),
                 ],
               ),
               expandedHeight: 200,
@@ -107,7 +86,8 @@ class PlayListExpanded extends StatelessWidget {
                   },
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        padding:
+                            const EdgeInsets.only(left: 20, right: 20, top: 20),
                         child: GestureDetector(
                           onHorizontalDragUpdate: ((details) {
                             if (details.delta.direction > 0) {

@@ -108,7 +108,7 @@ class _TopContainerPlayState extends State<TopContainerPlay> {
                 shape: BoxShape.circle,
                 color: lTheme
                     ? const Color.fromRGBO(43, 45, 66, 1)
-                    : MyTheme.d_light,
+                    : MyTheme.d_blueDark,
                 boxShadow: [MyFont.myBoxShadow()],
               ),
               width: 60,
@@ -140,7 +140,7 @@ class _TopContainerPlayState extends State<TopContainerPlay> {
                       shape: BoxShape.circle,
                       color: lTheme
                           ? const Color.fromRGBO(43, 45, 66, 1)
-                          : MyTheme.d_light,
+                          : MyTheme.d_blueDark,
                       boxShadow: [MyFont.myBoxShadow()],
                     ),
                     width: 60,

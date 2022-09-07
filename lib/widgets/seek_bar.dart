@@ -44,7 +44,7 @@ Widget mainSeekBar(BuildContext ctx) {
       barHeight: 5,
       thumbColor: Colors.red.shade400,
       baseBarColor: lTheme ? Colors.grey.shade500 : Colors.grey.shade400,
-      progressBarColor: lTheme ? MyTheme.blueDark : MyTheme.d_light,
+      progressBarColor: lTheme ? MyTheme.blueDark : MyTheme.d_blueDark,
       // barCapShape: BarCapShape.square,
       progress: currentPosition,
       total: totalTime,

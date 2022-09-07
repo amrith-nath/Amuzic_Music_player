@@ -32,15 +32,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DynamicTheme(
-        themeCollection: MyTheme.themeCollection,
-        defaultThemeId: MyTheme.lightThemeId,
-        builder: (context, theme) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: theme,
-            home: const SplashSreen(),
-          );
-        });
+    return Builder(builder: (context) {
+      return DynamicTheme(
+          themeCollection: MyTheme.themeCollection,
+          defaultThemeId: MyTheme.lightThemeId,
+          builder: (context, theme) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: theme,
+              home: const SplashSreen(),
+            );
+          });
+    });
   }
 }

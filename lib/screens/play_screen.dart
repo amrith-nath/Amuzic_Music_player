@@ -118,7 +118,9 @@ class _PlayScreenState extends State<PlayScreen> {
                                           },
                                           icon: Icon(
                                             Icons.repeat_one,
-                                            color: Colors.grey.shade700,
+                                            color: lTheme
+                                                ? Colors.grey.shade700
+                                                : MyTheme.d_blueDark,
                                           ),
                                         )
                                       : IconButton(
@@ -132,7 +134,9 @@ class _PlayScreenState extends State<PlayScreen> {
                                           },
                                           icon: Icon(
                                             Icons.repeat,
-                                            color: Colors.grey.shade700,
+                                            color: lTheme
+                                                ? Colors.grey.shade700
+                                                : MyTheme.d_blueDark,
                                           ),
                                         );
                                 },
@@ -157,7 +161,9 @@ class _PlayScreenState extends State<PlayScreen> {
                                           },
                                           icon: Icon(
                                             Icons.cached,
-                                            color: Colors.grey.shade700,
+                                            color: lTheme
+                                                ? Colors.grey.shade700
+                                                : MyTheme.d_blueDark,
                                           ),
                                         )
                                       : IconButton(
@@ -170,7 +176,9 @@ class _PlayScreenState extends State<PlayScreen> {
                                           },
                                           icon: Icon(
                                             Icons.shuffle,
-                                            color: Colors.grey.shade700,
+                                            color: lTheme
+                                                ? Colors.grey.shade700
+                                                : MyTheme.d_blueDark,
                                           ),
                                         );
                                 },
@@ -192,7 +200,7 @@ class _PlayScreenState extends State<PlayScreen> {
                                   Icons.rotate_left_outlined,
                                   color: lTheme
                                       ? MyTheme.blueDark
-                                      : Colors.grey.shade400,
+                                      : MyTheme.d_blueDark,
                                 ),
                               ),
                             ),
@@ -206,7 +214,7 @@ class _PlayScreenState extends State<PlayScreen> {
                                   Icons.skip_previous_rounded,
                                   color: lTheme
                                       ? MyTheme.blueDark
-                                      : Colors.grey.shade400,
+                                      : MyTheme.d_blueDark,
                                 ),
                               ),
                             ),
@@ -224,7 +232,7 @@ class _PlayScreenState extends State<PlayScreen> {
                                         : Icons.play_circle_filled_rounded,
                                     color: lTheme
                                         ? MyTheme.blueDark
-                                        : Colors.grey.shade400,
+                                        : MyTheme.d_blueDark,
                                   ),
                                 );
                               },
@@ -239,7 +247,7 @@ class _PlayScreenState extends State<PlayScreen> {
                                   Icons.skip_next_rounded,
                                   color: lTheme
                                       ? MyTheme.blueDark
-                                      : Colors.grey.shade400,
+                                      : MyTheme.d_blueDark,
                                 ),
                               ),
                             ),
@@ -254,7 +262,7 @@ class _PlayScreenState extends State<PlayScreen> {
                                   Icons.rotate_right_outlined,
                                   color: lTheme
                                       ? MyTheme.blueDark
-                                      : Colors.grey.shade400,
+                                      : MyTheme.d_blueDark,
                                 ),
                               ),
                             ),

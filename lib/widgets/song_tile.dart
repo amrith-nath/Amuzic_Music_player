@@ -72,7 +72,7 @@ class _SongTileState extends State<SongTile> {
           Container(
             clipBehavior: Clip.hardEdge,
             decoration: BoxDecoration(
-              color: lTheme ? Colors.white : MyTheme.d_base,
+              color: lTheme ? Colors.white : MyTheme.d_blueDark,
               borderRadius: BorderRadius.circular(10),
               boxShadow: [MyFont.myBoxShadow()],
             ),
@@ -156,7 +156,7 @@ class _SongTileState extends State<SongTile> {
                           width: 40,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: lTheme ? MyTheme.light : MyTheme.d_blueDark,
+                            color: lTheme ? MyTheme.light : MyTheme.d_base,
                           ),
                           // child: const Icon(
                           //   Icons.more_vert_outlined,

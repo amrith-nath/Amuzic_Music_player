@@ -95,7 +95,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           filled: true,
                           fillColor: lTheme
                               ? const Color.fromRGBO(217, 217, 217, 1)
-                              : MyTheme.d_light,
+                              : MyTheme.d_blueDark,
                         ),
                         onChanged: (value) {
                           setState(() {
@@ -127,7 +127,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         height: 60,
                         child: Icon(
                           Icons.close_rounded,
-                          color: lTheme ? MyTheme.blueDark : Colors.grey,
+                          color: lTheme ? MyTheme.light : Colors.grey,
                           size: 30,
                         ),
                       ),
@@ -139,7 +139,9 @@ class _SearchScreenState extends State<SearchScreen> {
             playLists.length > 2 && flag != 0
                 ? MyFont.montBold18("PlayLists")
                 : MyFont.montMedium13("No PlayLists found"),
-            const Divider(),
+            Divider(
+              color: lTheme ? MyTheme.blueDark : MyTheme.light,
+            ),
             SlideInRight(
               duration: const Duration(milliseconds: 300),
               child: SizedBox(
@@ -197,7 +199,9 @@ class _SearchScreenState extends State<SearchScreen> {
             songs.isNotEmpty && flagSong != 0
                 ? MyFont.montBold18("Songs")
                 : MyFont.montMedium13("No Songs found"),
-            const Divider(),
+            Divider(
+              color: lTheme ? MyTheme.blueDark : MyTheme.light,
+            ),
             Expanded(
                 child: currenttext.isNotEmpty
                     ? Padding(

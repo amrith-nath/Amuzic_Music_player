@@ -1,6 +1,8 @@
 import 'dart:math';
+import 'package:amuzic/theme/app_theme.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_music_visualizer/mini_music_visualizer.dart';
 
@@ -13,13 +15,15 @@ class Visualizer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final lTheme = DynamicTheme.of(context)!.themeId == 0 ? true : false;
+
     var width = MediaQuery.of(context).size.width - 20;
     var mywidth = width / 60;
     var height = MediaQuery.of(context).size.height / 10;
     final visualizeList = List<Widget>.generate(
         13,
         (index) => MiniMusicVisualizer(
-              color: Colors.red.shade100,
+              color: lTheme ? Colors.red.shade100 : Colors.blue.shade900,
               width: mywidth,
               height: height * Random().nextDouble() + 5,
             ));

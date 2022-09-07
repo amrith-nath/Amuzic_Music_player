@@ -52,6 +52,7 @@ dependencies:
   headset_connection_event: ^2.1.1
   share_plus: ^4.0.10+1
   dynamic_themes: ^1.1.0
+  animated_theme_switcher: ^2.0.6
 
 dev_dependencies:
   flutter_launcher_icons: ^0.9.2
