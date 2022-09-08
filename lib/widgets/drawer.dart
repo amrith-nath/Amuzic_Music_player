@@ -100,14 +100,14 @@ class _MydrawerState extends State<Mydrawer> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'AMUZ',
+                            'A',
                             style: drawerTextStyle(
                                 theme: lTheme,
                                 color1: MyTheme.red,
                                 color2: MyTheme.d_red),
                           ),
                           Text(
-                            'IC',
+                            'MUZIC',
                             style: drawerTextStyle(
                                 theme: lTheme,
                                 color1: MyTheme.blueDark,

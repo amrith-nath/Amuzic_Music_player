@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:amuzic/database/database_model.dart';
+import 'package:amuzic/database/db_functions.dart';
 import 'package:amuzic/main.dart';
 import 'package:amuzic/screens/play_screen.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
@@ -8,10 +12,17 @@ class PlaySong {
   List<Audio> fullSongs;
   int index;
 
+  final box = Mybox.getinstance();
+  List<LocalStorageSongs> myRecentSongs = [];
+
   PlaySong({required this.fullSongs, required this.index});
   final AssetsAudioPlayer myPlayer = AssetsAudioPlayer.withId('0');
   bool? notify;
   startPlay() {
+    myRecentSongs = box!.get("recent") as List<LocalStorageSongs>;
+
+    final song = getSong(fullSongs[index]);
+    addSong(song);
     notify = preferences.getBool("notification") ?? true;
     myPlayer.open(
       Playlist(
@@ -35,6 +46,35 @@ class PlaySong {
 
   repeat() {
     myPlayer.loopMode;
+  }
+
+  getSong(Audio song) {
+    final recentSong = LocalStorageSongs(
+        title: song.metas.title,
+        artist: song.metas.artist,
+        uri: song.path,
+        duration: 0,
+        id: int.parse(song.metas.id!));
+
+    return recentSong;
+  }
+
+  addSong(LocalStorageSongs song) async {
+    int flag = 0;
+    for (var element in myRecentSongs) {
+      if (element.uri == song.uri) {
+        log("yes it contains");
+        flag++;
+      }
+    }
+    if (flag == 0) {
+      log("No it contains");
+      myRecentSongs.add(song);
+      await box!.put("recent", myRecentSongs);
+    }
+
+    // recentTemp.add(song);
+    // log(recentTemp.length.toString());
   }
 }
 

@@ -24,6 +24,10 @@ void main() async {
     List<dynamic> likedSongs = [];
     await box.put("favourites", likedSongs);
   }
+  if (!songKeys.contains("recent")) {
+    List<LocalStorageSongs> recentSongs = [];
+    await box.put("recent", recentSongs);
+  }
   runApp(const MyApp());
 }
 

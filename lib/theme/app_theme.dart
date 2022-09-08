@@ -34,6 +34,10 @@ class MyTheme {
 
 //*light---------->
   static var lightTheme = ThemeData(
+    textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+      onSurface: MyTheme.red,
+    )),
     appBarTheme: AppBarTheme(color: MyTheme.light),
     colorScheme: const ColorScheme.light(),
     bottomSheetTheme:

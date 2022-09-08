@@ -55,9 +55,10 @@ class _SplashSreenState extends State<SplashSreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              MyTheme.splashText(text: 'AMUZ', color: MyTheme.red),
+              MyTheme.splashText(text: 'A', color: MyTheme.red),
               MyTheme.splashText(
-                  text: 'IC', color: !lTheme ? MyTheme.blueDark : Colors.white),
+                  text: 'MUZIC',
+                  color: !lTheme ? MyTheme.blueDark : Colors.white),
             ],
           ),
           const SizedBox(

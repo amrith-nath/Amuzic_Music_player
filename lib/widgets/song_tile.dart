@@ -36,7 +36,7 @@ class _SongTileState extends State<SongTile> {
     final lTheme = DynamicTheme.of(context)!.themeId == 0 ? true : false;
 
     var width = MediaQuery.of(context).size.width;
-    log(width.toString());
+
     return GestureDetector(
       onTap: () {
         // Scaffold.of(context).showBottomSheet((context) => MiniPlayer(
