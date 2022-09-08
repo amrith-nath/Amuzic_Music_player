@@ -18,11 +18,7 @@ class PlaySong {
   PlaySong({required this.fullSongs, required this.index});
   final AssetsAudioPlayer myPlayer = AssetsAudioPlayer.withId('0');
   bool? notify;
-  startPlay() {
-    myRecentSongs = box!.get("recent") as List<LocalStorageSongs>;
-
-    final song = getSong(fullSongs[index]);
-    addSong(song);
+  startPlay() async {
     notify = preferences.getBool("notification") ?? true;
     myPlayer.open(
       Playlist(
@@ -38,6 +34,9 @@ class PlaySong {
       headPhoneStrategy: HeadPhoneStrategy.pauseOnUnplug,
       playInBackground: PlayInBackground.enabled,
     );
+    myRecentSongs = box!.get("recent") as List<LocalStorageSongs>;
+    final song = getSong(fullSongs[index]);
+    await addSong(song);
   }
 
   shuffle() {
@@ -61,14 +60,14 @@ class PlaySong {
 
   addSong(LocalStorageSongs song) async {
     int flag = 0;
+    if (myRecentSongs.length >= 10) myRecentSongs.removeAt(0);
+
     for (var element in myRecentSongs) {
       if (element.uri == song.uri) {
-        log("yes it contains");
         flag++;
       }
     }
     if (flag == 0) {
-      log("No it contains");
       myRecentSongs.add(song);
       await box!.put("recent", myRecentSongs);
     }

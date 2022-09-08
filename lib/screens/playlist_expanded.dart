@@ -53,7 +53,7 @@ class PlayListExpanded extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      MyFont.montBold24(playlistName, context),
+                      MyFont.montBold24(playlistName.toUpperCase(), context),
                     ],
                   ),
                 ),
@@ -76,65 +76,72 @@ class PlayListExpanded extends StatelessWidget {
                       )));
                 }
 
-                return ListView.separated(
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: playlistSongs.length,
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const SizedBox(
-                      height: 20,
-                    );
-                  },
-                  itemBuilder: (BuildContext context, int index) {
-                    return Padding(
-                        padding:
-                            const EdgeInsets.only(left: 20, right: 20, top: 20),
-                        child: GestureDetector(
-                          onHorizontalDragUpdate: ((details) {
-                            if (details.delta.direction > 0) {
-                              showDialog(
-                                  context: context,
-                                  builder: ((context) => AlertDialog(
-                                        backgroundColor: MyTheme.blueDark,
-                                        content: MyFont.montMedium13White(
-                                            "Are you sure you want to delete?"),
-                                        actions: [
-                                          TextButton.icon(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            icon: const Icon(
-                                              Icons.close,
-                                              color: Colors.red,
-                                            ),
-                                            label:
-                                                MyFont.montMedium13White("No"),
-                                          ),
-                                          TextButton.icon(
-                                            onPressed: () {
-                                              playlistSongs.removeAt(index);
-                                              box!.put(
-                                                  playlistName, playlistSongs);
-                                              Navigator.pop(context);
-                                            },
-                                            icon: const Icon(
-                                              Icons.done,
-                                              color: Colors.green,
-                                            ),
-                                            label:
-                                                MyFont.montMedium13White("Yes"),
-                                          ),
-                                        ],
-                                      )));
-                            }
-                          }),
-                          child: SongTile(
-                            playlistSongs[index].id!,
-                            songs: playListtemp,
-                            index: index,
-                          ),
-                        ));
-                  },
-                );
+                return playlistSongs.isNotEmpty
+                    ? ListView.separated(
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: playlistSongs.length,
+                        separatorBuilder: (BuildContext context, int index) {
+                          return const SizedBox(
+                            height: 20,
+                          );
+                        },
+                        itemBuilder: (BuildContext context, int index) {
+                          return Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 20, right: 20, top: 20),
+                              child: GestureDetector(
+                                onHorizontalDragUpdate: ((details) {
+                                  if (details.delta.direction > 0) {
+                                    showDialog(
+                                        context: context,
+                                        builder: ((context) => AlertDialog(
+                                              backgroundColor: MyTheme.blueDark,
+                                              content: MyFont.montMedium13White(
+                                                  "Are you sure you want to delete?"),
+                                              actions: [
+                                                TextButton.icon(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  icon: const Icon(
+                                                    Icons.close,
+                                                    color: Colors.red,
+                                                  ),
+                                                  label:
+                                                      MyFont.montMedium13White(
+                                                          "No"),
+                                                ),
+                                                TextButton.icon(
+                                                  onPressed: () {
+                                                    playlistSongs
+                                                        .removeAt(index);
+                                                    box!.put(playlistName,
+                                                        playlistSongs);
+                                                    Navigator.pop(context);
+                                                  },
+                                                  icon: const Icon(
+                                                    Icons.done,
+                                                    color: Colors.green,
+                                                  ),
+                                                  label:
+                                                      MyFont.montMedium13White(
+                                                          "Yes"),
+                                                ),
+                                              ],
+                                            )));
+                                  }
+                                }),
+                                child: SongTile(
+                                  playlistSongs[index].id!,
+                                  songs: playListtemp,
+                                  index: index,
+                                ),
+                              ));
+                        },
+                      )
+                    : Center(
+                        child:
+                            MyFont.montMedium13("No Songs found , Add some"));
               }),
         ),
       ),

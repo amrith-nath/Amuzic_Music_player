@@ -87,7 +87,8 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                     const EdgeInsets.symmetric(horizontal: 40),
                                 child:
                                     playlists[index] != "musics" &&
-                                            playlists[index] != "favourites"
+                                            playlists[index] != "favourites" &&
+                                            playlists[index] != "recent"
                                         ? GestureDetector(
                                             onTap: () {
                                               Navigator.push(

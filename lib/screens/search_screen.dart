@@ -156,7 +156,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                   .toLowerCase()
                                   .contains(currenttext.toLowerCase()) &&
                               element.toString() != "musics" &&
-                              element.toString() != "favourites"
+                              element.toString() != "favourites" &&
+                              element.toString() != "recent"
                           ? Column(
                               children: [
                                 GestureDetector(

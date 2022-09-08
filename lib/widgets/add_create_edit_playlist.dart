@@ -73,7 +73,8 @@ class AddToPlaylist extends StatelessWidget {
           itemCount: playlistsNames.length,
           itemBuilder: (BuildContext context, int index) {
             return playlistsNames[index] != "musics" &&
-                    playlistsNames[index] != "favourites"
+                    playlistsNames[index] != "favourites" &&
+                    playlistsNames[index] != "recent"
                 ? Container(
                     clipBehavior: Clip.hardEdge,
                     margin: const EdgeInsets.only(bottom: 10),
