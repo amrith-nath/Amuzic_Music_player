@@ -10,10 +10,10 @@ import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
 
 class MyHome extends StatefulWidget {
-  MyHome({required this.userName, required this.allSongs, Key? key})
+  const MyHome({required this.userName, required this.allSongs, Key? key})
       : super(key: key);
-  String userName;
-  List<Audio> allSongs;
+  final String userName;
+  final List<Audio> allSongs;
 
   @override
   State<MyHome> createState() => _MyHomeState();

@@ -27,7 +27,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 10,
+        toolbarHeight: 20,
         automaticallyImplyLeading: false,
         elevation: 0,
       ),

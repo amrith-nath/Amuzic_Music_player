@@ -5,7 +5,6 @@ import 'package:amuzic/main.dart';
 import 'package:amuzic/widgets/buttons.dart';
 import 'package:amuzic/widgets/settings_dlg.dart';
 import 'package:animate_do/animate_do.dart';
-import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
