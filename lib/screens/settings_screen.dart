@@ -264,7 +264,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   inactiveTrackColor: Colors.grey,
                                   activeTrackColor: Colors.grey.shade800,
                                   activeColor: MyTheme.red,
-                                  inactiveThumbColor: Colors.black,
+                                  inactiveThumbColor:
+                                      !lTheme ? MyTheme.light : Colors.black,
                                 ),
                               ],
                             ),

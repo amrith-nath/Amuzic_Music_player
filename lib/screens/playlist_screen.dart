@@ -198,6 +198,9 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                                                             onPressed:
                                                                                 () {
                                                                               box!.delete(playlists[index]);
+                                                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                                                SnackBar(backgroundColor: MyTheme.d_red, content: MyFont.montMedium13('${playlists[index].toString().toUpperCase()}  Deleted')),
+                                                                              );
                                                                               setState(() {
                                                                                 playlists = box!.keys.toList();
                                                                               });

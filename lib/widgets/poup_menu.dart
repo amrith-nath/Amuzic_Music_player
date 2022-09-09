@@ -55,10 +55,11 @@ class _PopUpMenuState extends State<PopUpMenu> {
                               Navigator.pop(context);
 
                               favourites.add(temp);
+
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                    backgroundColor: MyTheme.red,
-                                    content: MyFont.montMedium13White(
+                                    backgroundColor: Colors.green,
+                                    content: MyFont.montMedium13(
                                         '${temp.title}  Added to Favourites')),
                               );
                               await box!.put("favourites", favourites);

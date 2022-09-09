@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:amuzic/database/db_functions.dart';
 import 'package:amuzic/theme/app_theme.dart';
 import 'package:amuzic/widgets/buttons.dart';
@@ -70,8 +72,9 @@ class RecentScreen extends StatelessWidget {
               valueListenable: box!.listenable(),
               builder: (context, value, child) {
                 final recentSongs = box.get("recent");
+                log("${recentSongs!.length}");
 
-                for (var element in recentSongs!) {
+                for (var element in recentSongs) {
                   recentSongsTemp.add(Audio.file(element.uri,
                       metas: Metas(
                         title: element.title,

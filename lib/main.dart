@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:amuzic/database/database_model.dart';
 import 'package:amuzic/database/db_functions.dart';
 import 'package:amuzic/screens/splash_screen.dart';
@@ -27,6 +29,7 @@ void main() async {
   if (!songKeys.contains("recent")) {
     List<LocalStorageSongs> recentSongs = [];
     await box.put("recent", recentSongs);
+    log("recent created");
   }
   runApp(const MyApp());
 }
