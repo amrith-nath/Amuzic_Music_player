@@ -38,7 +38,9 @@ class MyTheme {
         style: TextButton.styleFrom(
       onSurface: MyTheme.red,
     )),
-    appBarTheme: AppBarTheme(color: MyTheme.light),
+    appBarTheme: AppBarTheme(
+      color: MyTheme.light,
+    ),
     colorScheme: const ColorScheme.light(),
     bottomSheetTheme:
         BottomSheetThemeData(backgroundColor: Colors.black.withOpacity(0)),

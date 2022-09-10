@@ -157,6 +157,17 @@ class MyFont {
     );
   }
 
+  static montBold16A(String text) {
+    return Text(
+      text,
+      textAlign: TextAlign.center,
+      style: GoogleFonts.montserrat(
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+      ),
+    );
+  }
+
   static montBold16White(String text) {
     return Text(
       text,

@@ -54,14 +54,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
     var size = MediaQuery.of(context).size;
 
     settingsTile({
-      required String text,
-      required IconData icon,
+      bool isContactUs = false,
+      String text = '',
+      IconData icon = Icons.abc,
     }) =>
         GestureDetector(
           onTap: () {
-            showDialog(
-                context: context,
-                builder: (context) => SettingsDlg(title: text));
+            !isContactUs
+                ? showLicensePage(
+                    context: context,
+                    applicationName: "AMUZIC",
+                    applicationIcon: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        height: 100,
+                        width: 100,
+                        child: Image.asset("assets/images/note_app.png"),
+                      ),
+                    ),
+                  )
+                : showDialog(
+                    context: context,
+                    builder: (context) => SettingsDlg(title: text));
           },
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -345,6 +359,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   height: 30,
                 ),
                 settingsTile(
+                  isContactUs: true,
                   text: "ABOUT US",
                   icon: Icons.info,
                 ),
