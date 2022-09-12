@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'package:amuzic/database/db_functions.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:amuzic/database/database_model.dart';
@@ -121,8 +120,6 @@ class _SplashSreenState extends State<SplashSreen> {
         ),
       );
     }
-    //test-log
-    log('the length is ${audioSongs.length}');
   }
 
   //

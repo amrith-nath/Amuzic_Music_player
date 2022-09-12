@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:amuzic/database/database_model.dart';
+import 'dart:developer';
 import 'package:amuzic/database/db_functions.dart';
 import 'package:amuzic/main.dart';
 import 'package:amuzic/screens/play_screen.dart';
@@ -13,7 +12,7 @@ class PlaySong {
   int index;
 
   final box = Mybox.getinstance();
-  List<LocalStorageSongs> myRecentSongs = [];
+  List myRecentSongs = [];
 
   PlaySong({required this.fullSongs, required this.index});
   final AssetsAudioPlayer myPlayer = AssetsAudioPlayer.withId('0');
@@ -34,9 +33,13 @@ class PlaySong {
       headPhoneStrategy: HeadPhoneStrategy.pauseOnUnplug,
       playInBackground: PlayInBackground.enabled,
     );
-    myRecentSongs = box!.get("recent") as List<LocalStorageSongs>;
+    log("before recent");
+    myRecentSongs = box!.get("recent")!;
+    log(myRecentSongs.length.toString());
     final song = getSong(fullSongs[index]);
+
     await addSong(song);
+    log("After recent");
   }
 
   shuffle() {
