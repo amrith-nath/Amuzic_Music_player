@@ -25,6 +25,8 @@ class MiniPlayer extends StatefulWidget {
 int? indextemp;
 
 class _MiniPlayerState extends State<MiniPlayer> {
+  bool nextDone = true;
+  bool preDone = true;
 //
   final AssetsAudioPlayer assetAudioPlayer = AssetsAudioPlayer.withId("0");
 
@@ -161,7 +163,11 @@ class _MiniPlayerState extends State<MiniPlayer> {
                         IconButton(
                           iconSize: 30,
                           onPressed: () async {
-                            await assetAudioPlayer.previous();
+                            if (preDone) {
+                              preDone = false;
+                              await assetAudioPlayer.previous();
+                              preDone = true;
+                            }
                           },
                           icon: Icon(
                             Icons.skip_previous_rounded,
@@ -188,7 +194,11 @@ class _MiniPlayerState extends State<MiniPlayer> {
                         IconButton(
                           iconSize: 30,
                           onPressed: () async {
-                            await assetAudioPlayer.next();
+                            if (nextDone) {
+                              nextDone = false;
+                              await assetAudioPlayer.next();
+                              nextDone = true;
+                            }
                           },
                           icon: Icon(
                             Icons.skip_next_rounded,

@@ -28,6 +28,8 @@ class _PlayScreenState extends State<PlayScreen> {
   final box = Mybox.getinstance();
   bool isLooping = false;
   bool isShuffle = false;
+  bool nextDone = true;
+  bool preDone = true;
 
   @override
   Widget build(BuildContext context) {
@@ -208,7 +210,11 @@ class _PlayScreenState extends State<PlayScreen> {
                               child: IconButton(
                                 iconSize: 40,
                                 onPressed: () async {
-                                  await assetAudioPlayer.previous();
+                                  if (preDone) {
+                                    preDone = false;
+                                    await assetAudioPlayer.previous();
+                                    preDone = true;
+                                  }
                                 },
                                 icon: Icon(
                                   Icons.skip_previous_rounded,
@@ -241,7 +247,11 @@ class _PlayScreenState extends State<PlayScreen> {
                               child: IconButton(
                                 iconSize: 40,
                                 onPressed: () async {
-                                  await assetAudioPlayer.next();
+                                  if (nextDone) {
+                                    nextDone = false;
+                                    await assetAudioPlayer.next();
+                                    nextDone = true;
+                                  }
                                 },
                                 icon: Icon(
                                   Icons.skip_next_rounded,
