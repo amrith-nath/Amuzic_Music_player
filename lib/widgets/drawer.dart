@@ -31,11 +31,16 @@ class _MydrawerState extends State<Mydrawer> {
       required Color color1,
       required Color color2,
     }) =>
-        GoogleFonts.rajdhani(
-          fontSize: 64,
-          fontWeight: FontWeight.w500,
-          color: theme ? color1 : color2,
-        );
+        TextStyle(
+            color: theme ? color1 : color2,
+            fontFamily: "Rajdhani",
+            fontSize: 64,
+            fontWeight: FontWeight.w500);
+    // GoogleFonts.rajdhani(
+    //   fontSize: 64,
+    //   fontWeight: FontWeight.w500,
+    //   color: theme ? color1 : color2,
+    // );
 
     CircleAvatar drawerAvatar({
       required Color color,

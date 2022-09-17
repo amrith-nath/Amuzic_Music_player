@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:amuzic/widgets/buttons.dart';
 import 'package:amuzic/widgets/song_tile.dart';
 import 'package:dynamic_themes/dynamic_themes.dart';
@@ -22,9 +24,9 @@ class _favouritesState extends State<favourites> {
     final lTheme = DynamicTheme.of(context)!.themeId == 0 ? true : false;
 
     // List<LocalStorageSongs>? dbSongs = [];
-    List<Audio> favSongsTemp = [];
 
     final box = Mybox.getinstance();
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -75,7 +77,7 @@ class _favouritesState extends State<favourites> {
               valueListenable: box!.listenable(),
               builder: (context, value, child) {
                 final favSongs = box.get("favourites");
-
+                List<Audio> favSongsTemp = [];
                 for (var element in favSongs!) {
                   favSongsTemp.add(Audio.file(element.uri,
                       metas: Metas(
@@ -84,7 +86,6 @@ class _favouritesState extends State<favourites> {
                         artist: element.artist,
                       )));
                 }
-
                 return favSongs.isNotEmpty
                     ? ListView.separated(
                         physics: const BouncingScrollPhysics(),
@@ -97,7 +98,7 @@ class _favouritesState extends State<favourites> {
                               padding: const EdgeInsets.only(
                                   left: 20, right: 20, top: 20),
                               child: SongTile(
-                                favSongs[index].id!,
+                                int.parse(favSongsTemp[index].metas.id!),
                                 songs: favSongsTemp,
                                 index: index,
                               ));

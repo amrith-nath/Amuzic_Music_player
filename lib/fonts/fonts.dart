@@ -2,15 +2,15 @@ import 'package:amuzic/theme/app_theme.dart';
 import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class MyFont {
   static montBold36(String text) {
     return Text(
       text,
-      style: GoogleFonts.montserrat(
+      style: const TextStyle(
+        fontFamily: "Montserrat",
         fontSize: 36,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w600,
       ),
     );
   }
@@ -18,9 +18,10 @@ class MyFont {
   static montBold20(String text) {
     return Text(
       text,
-      style: GoogleFonts.montserrat(
+      style: const TextStyle(
+        fontFamily: "Montserrat",
         fontSize: 20,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w600,
       ),
     );
   }
@@ -28,9 +29,10 @@ class MyFont {
   static montBold18(String text) {
     return Text(
       text,
-      style: GoogleFonts.montserrat(
+      style: const TextStyle(
+        fontFamily: "Montserrat",
         fontSize: 18,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w600,
       ),
     );
   }
@@ -40,10 +42,11 @@ class MyFont {
     return Text(
       text,
       overflow: TextOverflow.ellipsis,
-      style: GoogleFonts.montserrat(
-        fontSize: 24,
-        fontWeight: FontWeight.bold,
+      style: TextStyle(
+        fontFamily: "Montserrat",
         color: theme ? Colors.black : Colors.white,
+        fontSize: 24,
+        fontWeight: FontWeight.w600,
       ),
     );
   }
@@ -51,40 +54,48 @@ class MyFont {
   static montBold20White(String text) {
     return Text(
       text,
-      style: GoogleFonts.montserrat(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          textStyle: const TextStyle(color: Colors.white)),
+      style: const TextStyle(
+        fontFamily: "Montserrat",
+        color: Colors.white,
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+      ),
     );
   }
 
   static montBold20Grey(String text) {
     return Text(
       text,
-      style: GoogleFonts.montserrat(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          textStyle: TextStyle(color: Colors.grey.shade400)),
+      style: TextStyle(
+        fontFamily: "Montserrat",
+        fontSize: 20,
+        color: Colors.grey.shade400,
+        fontWeight: FontWeight.w600,
+      ),
     );
   }
 
   static montBold20Red(String text) {
     return Text(
       text,
-      style: GoogleFonts.montserrat(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          textStyle: const TextStyle(color: Colors.white)),
+      style: const TextStyle(
+        fontFamily: "Montserrat",
+        fontSize: 20,
+        color: Colors.red,
+        fontWeight: FontWeight.w600,
+      ),
     );
   }
 
   static montBold24Red(String text) {
     return Text(
       text,
-      style: GoogleFonts.montserrat(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-          textStyle: const TextStyle(color: Color.fromRGBO(198, 31, 38, 1))),
+      style: const TextStyle(
+        fontFamily: "Montserrat",
+        color: Color.fromRGBO(198, 31, 38, 1),
+        fontSize: 24,
+        fontWeight: FontWeight.w600,
+      ),
     );
   }
 
@@ -92,7 +103,8 @@ class MyFont {
     return Text(
       text,
       textAlign: TextAlign.left,
-      style: GoogleFonts.montserrat(
+      style: const TextStyle(
+        fontFamily: "Montserrat",
         fontSize: 13,
         fontWeight: FontWeight.w600,
       ),
@@ -103,7 +115,8 @@ class MyFont {
     return Text(
       text,
       textAlign: TextAlign.left,
-      style: GoogleFonts.montserrat(
+      style: const TextStyle(
+        fontFamily: "Montserrat",
         fontSize: 16,
         fontWeight: FontWeight.w600,
       ),
@@ -114,12 +127,11 @@ class MyFont {
     return Text(
       text,
       textAlign: TextAlign.left,
-      style: GoogleFonts.montserrat(
+      style: const TextStyle(
+        fontFamily: "Montserrat",
+        color: Colors.white,
         fontSize: 18,
         fontWeight: FontWeight.w600,
-        textStyle: const TextStyle(
-          color: Colors.white,
-        ),
       ),
     );
   }
@@ -128,7 +140,8 @@ class MyFont {
     return Text(
       text,
       textAlign: TextAlign.start,
-      style: GoogleFonts.montserrat(
+      style: const TextStyle(
+        fontFamily: "Montserrat",
         fontSize: 10,
         fontWeight: FontWeight.w600,
       ),
@@ -139,10 +152,12 @@ class MyFont {
     return Text(
       text,
       textAlign: TextAlign.start,
-      style: GoogleFonts.montserrat(
-          fontSize: 10,
-          fontWeight: FontWeight.w600,
-          textStyle: TextStyle(color: Colors.grey.shade600)),
+      style: TextStyle(
+        fontFamily: "Montserrat",
+        color: Colors.grey.shade600,
+        fontSize: 10,
+        fontWeight: FontWeight.w600,
+      ),
     );
   }
 
@@ -150,7 +165,8 @@ class MyFont {
     return Text(
       text,
       overflow: TextOverflow.ellipsis,
-      style: GoogleFonts.montserrat(
+      style: const TextStyle(
+        fontFamily: "Montserrat",
         fontSize: 16,
         fontWeight: FontWeight.w600,
       ),
@@ -161,7 +177,8 @@ class MyFont {
     return Text(
       text,
       textAlign: TextAlign.center,
-      style: GoogleFonts.montserrat(
+      style: const TextStyle(
+        fontFamily: "Montserrat",
         fontSize: 16,
         fontWeight: FontWeight.w600,
       ),
@@ -172,10 +189,12 @@ class MyFont {
     return Text(
       text,
       overflow: TextOverflow.ellipsis,
-      style: GoogleFonts.montserrat(
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
-          textStyle: const TextStyle(color: Colors.white)),
+      style: const TextStyle(
+        fontFamily: "Montserrat",
+        color: Colors.white,
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+      ),
     );
   }
 
@@ -183,17 +202,20 @@ class MyFont {
     return Text(
       text,
       overflow: TextOverflow.ellipsis,
-      style: GoogleFonts.montserrat(
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
-          textStyle: TextStyle(color: MyTheme.red)),
+      style: TextStyle(
+        fontFamily: "Montserrat",
+        color: MyTheme.red,
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+      ),
     );
   }
 
   static montBold8(String text) {
     return Text(
       text,
-      style: GoogleFonts.montserrat(
+      style: const TextStyle(
+        fontFamily: "Montserrat",
         fontSize: 8,
         fontWeight: FontWeight.w600,
       ),
@@ -203,7 +225,8 @@ class MyFont {
   static montRegular10(String text) {
     return Text(
       text,
-      style: GoogleFonts.montserrat(
+      style: const TextStyle(
+        fontFamily: "Montserrat",
         fontSize: 10,
         fontWeight: FontWeight.w400,
       ),
@@ -213,7 +236,8 @@ class MyFont {
   static montLight10(String text) {
     return Text(
       text,
-      style: GoogleFonts.montserrat(
+      style: const TextStyle(
+        fontFamily: "Montserrat",
         fontSize: 10,
         fontWeight: FontWeight.w300,
       ),
@@ -224,7 +248,8 @@ class MyFont {
     return Text(
       text,
       textAlign: TextAlign.left,
-      style: GoogleFonts.montserrat(
+      style: const TextStyle(
+        fontFamily: "Montserrat",
         fontSize: 10,
         fontWeight: FontWeight.w300,
       ),
@@ -235,7 +260,8 @@ class MyFont {
     return Text(
       text,
       overflow: TextOverflow.ellipsis,
-      style: GoogleFonts.montserrat(
+      style: const TextStyle(
+        fontFamily: "Montserrat",
         fontSize: 13,
         fontWeight: FontWeight.w500,
       ),
@@ -246,17 +272,20 @@ class MyFont {
     return Text(
       text,
       overflow: TextOverflow.ellipsis,
-      style: GoogleFonts.montserrat(
-          fontSize: 13,
-          fontWeight: FontWeight.w500,
-          textStyle: const TextStyle(color: Colors.white)),
+      style: const TextStyle(
+        color: Colors.white,
+        fontFamily: "Montserrat",
+        fontSize: 13,
+        fontWeight: FontWeight.w500,
+      ),
     );
   }
 
   static montMedium8(String text) {
     return Text(
       text,
-      style: GoogleFonts.montserrat(
+      style: const TextStyle(
+        fontFamily: "Montserrat",
         fontSize: 8,
         fontWeight: FontWeight.w500,
       ),

@@ -85,10 +85,11 @@ class MyTheme {
 
   static splashText({required String text, required Color color}) => Text(
         text,
-        style: GoogleFonts.rajdhani(
-          fontSize: 64,
-          fontWeight: FontWeight.w500,
+        style: TextStyle(
+          fontFamily: "Montserrat",
           color: color,
+          fontSize: 64,
+          fontWeight: FontWeight.w600,
         ),
       );
 
