@@ -7,7 +7,6 @@ import 'package:amuzic/theme/app_theme.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 
 class Mydrawer extends StatefulWidget {

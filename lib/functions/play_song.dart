@@ -33,13 +33,12 @@ class PlaySong {
       headPhoneStrategy: HeadPhoneStrategy.pauseOnUnplug,
       playInBackground: PlayInBackground.enabled,
     );
-    log("before recent");
+
     myRecentSongs = box!.get("recent")!;
     log(myRecentSongs.length.toString());
     final song = getSong(fullSongs[index]);
 
     await addSong(song);
-    log("After recent");
   }
 
   shuffle() {
