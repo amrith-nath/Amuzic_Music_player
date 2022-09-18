@@ -11,14 +11,13 @@ import 'package:animate_do/animate_do.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 
-class favourites extends StatefulWidget {
+import '../widgets/add_song_bar.dart';
+
+class favourites extends StatelessWidget {
   const favourites({Key? key}) : super(key: key);
 
-  @override
-  State<favourites> createState() => _favouritesState();
-}
+  final String playlistName = "favourites";
 
-class _favouritesState extends State<favourites> {
   @override
   Widget build(BuildContext context) {
     final lTheme = DynamicTheme.of(context)!.themeId == 0 ? true : false;
@@ -26,6 +25,7 @@ class _favouritesState extends State<favourites> {
     // List<LocalStorageSongs>? dbSongs = [];
 
     final box = Mybox.getinstance();
+    bool isFABSwitched = true;
 
     return Scaffold(
       appBar: AppBar(
@@ -76,7 +76,7 @@ class _favouritesState extends State<favourites> {
           child: ValueListenableBuilder(
               valueListenable: box!.listenable(),
               builder: (context, value, child) {
-                final favSongs = box.get("favourites");
+                final favSongs = box.get(playlistName);
                 List<Audio> favSongsTemp = [];
                 for (var element in favSongs!) {
                   favSongsTemp.add(Audio.file(element.uri,
@@ -111,6 +111,48 @@ class _favouritesState extends State<favourites> {
               }),
         ),
       ),
+      floatingActionButton: Builder(builder: (context) {
+        return StatefulBuilder(builder: (context, setState) {
+          return FloatingActionButton(
+            heroTag: 'faB',
+            elevation: 20,
+            enableFeedback: true,
+            backgroundColor: lTheme ? MyTheme.blueDark : MyTheme.d_red,
+            onPressed: () {
+              if (isFABSwitched) {
+                showBottomSheet(
+                  backgroundColor: Colors.transparent,
+                  context: context,
+                  builder: (context) => AddSongBar(
+                    playListName: playlistName,
+                  ),
+                );
+                isFABSwitched = false;
+              } else {
+                Navigator.of(context).pop();
+                isFABSwitched = true;
+              }
+              // AddSongBar(
+              //   mycontext: context,
+              // ).showOrHide();
+              // log("message");
+              setState(() {});
+            },
+            child: isFABSwitched
+                ? Icon(
+                    Icons.add,
+                    size: 40,
+                    color: MyTheme.light,
+                  )
+                : Icon(
+                    Icons.expand_more_sharp,
+                    size: 40,
+                    color: MyTheme.light,
+                  ),
+          );
+        });
+      }),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

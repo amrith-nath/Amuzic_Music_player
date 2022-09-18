@@ -85,7 +85,7 @@ class MyTheme {
   static splashText({required String text, required Color color}) => Text(
         text,
         style: TextStyle(
-          fontFamily: "Montserrat",
+          fontFamily: "Rajdhani",
           color: color,
           fontSize: 64,
           fontWeight: FontWeight.w600,

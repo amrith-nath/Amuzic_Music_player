@@ -50,6 +50,7 @@ dependencies:
   mini_music_visualizer: ^1.0.2
   share_plus: ^4.0.10+1
   dynamic_themes: ^1.1.0
+  solid_bottom_sheet: ^0.1.10
 
 dev_dependencies:
   build_runner: ^2.1.8

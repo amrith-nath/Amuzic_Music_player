@@ -257,21 +257,20 @@ class _PlayListScreenState extends State<PlayListScreen> {
           ),
         ),
       ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(right: 40, bottom: 40),
-        child: FloatingActionButton(
-          backgroundColor: lTheme ? MyTheme.blueDark : MyTheme.d_dark,
-          onPressed: () {
-            showDialog(
-                context: context, builder: (context) => CreatePlaylistDlg());
-          },
-          child: Icon(
-            Icons.add,
-            size: 40,
-            color: MyTheme.light,
-          ),
+      floatingActionButton: FloatingActionButton(
+        heroTag: 'faB',
+        backgroundColor: lTheme ? MyTheme.blueDark : MyTheme.d_red,
+        onPressed: () {
+          showDialog(
+              context: context, builder: (context) => CreatePlaylistDlg());
+        },
+        child: Icon(
+          Icons.add,
+          size: 40,
+          color: MyTheme.light,
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
     );
   }
 }

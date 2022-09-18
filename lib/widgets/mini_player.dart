@@ -23,6 +23,7 @@ class MiniPlayer extends StatefulWidget {
 }
 
 int? indextemp;
+String? songurl;
 
 class _MiniPlayerState extends State<MiniPlayer> {
   bool nextDone = true;
@@ -39,10 +40,11 @@ class _MiniPlayerState extends State<MiniPlayer> {
 
   @override
   void initState() {
-    if (indextemp == null || indextemp != widget.index) {
+    if (songurl == null || songurl != widget.fullSong[widget.index].path) {
       PlaySong(fullSongs: widget.fullSong, index: widget.index).startPlay();
     }
     indextemp = widget.index;
+    songurl = widget.fullSong[widget.index].path;
 
     super.initState();
   }
@@ -82,6 +84,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
             SlideInUp(
               // duration: Duration(milliseconds: 400),
               child: Container(
+                margin: EdgeInsets.only(top: 30),
                 clipBehavior: Clip.hardEdge,
                 decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
@@ -166,6 +169,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
                             if (preDone) {
                               preDone = false;
                               await assetAudioPlayer.previous();
+
                               preDone = true;
                             }
                           },
@@ -196,6 +200,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
                           onPressed: () async {
                             if (nextDone) {
                               nextDone = false;
+
                               await assetAudioPlayer.next();
                               nextDone = true;
                             }

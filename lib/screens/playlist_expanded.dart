@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:amuzic/database/db_functions.dart';
 import 'package:amuzic/fonts/fonts.dart';
 import 'package:amuzic/theme/app_theme.dart';
+import 'package:amuzic/widgets/add_song_bar.dart';
 import 'package:amuzic/widgets/buttons.dart';
+import 'package:amuzic/widgets/mini_player.dart';
 import 'package:amuzic/widgets/song_tile.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
@@ -12,8 +16,12 @@ import 'package:hive_flutter/hive_flutter.dart';
 class PlayListExpanded extends StatelessWidget {
   PlayListExpanded({required this.playlistName, Key? key}) : super(key: key);
   final String playlistName;
+
   final box = Mybox.getinstance();
+
   List<Audio> playListtemp = [];
+
+  bool isFABSwitched = true;
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +73,7 @@ class PlayListExpanded extends StatelessWidget {
           child: ValueListenableBuilder(
               valueListenable: box!.listenable(),
               builder: (context, value, child) {
+                playListtemp = [];
                 final playlistSongs = box!.get(playlistName);
 
                 for (var element in playlistSongs!) {
@@ -75,6 +84,9 @@ class PlayListExpanded extends StatelessWidget {
                         artist: element.artist,
                       )));
                 }
+
+                log(playlistSongs.length.toString());
+                log(playListtemp.length.toString());
 
                 return playlistSongs.isNotEmpty
                     ? ListView.separated(
@@ -112,12 +124,18 @@ class PlayListExpanded extends StatelessWidget {
                                                           "No"),
                                                 ),
                                                 TextButton.icon(
-                                                  onPressed: () {
-                                                    playlistSongs
-                                                        .removeAt(index);
-                                                    box!.put(playlistName,
-                                                        playlistSongs);
+                                                  onPressed: () async {
                                                     Navigator.pop(context);
+
+                                                    playlistSongs.removeWhere(
+                                                        (item) =>
+                                                            item.id
+                                                                .toString() ==
+                                                            playlistSongs[index]
+                                                                .id
+                                                                .toString());
+                                                    await box!.put(playlistName,
+                                                        playlistSongs);
                                                   },
                                                   icon: const Icon(
                                                     Icons.done,
@@ -145,6 +163,48 @@ class PlayListExpanded extends StatelessWidget {
               }),
         ),
       ),
+      floatingActionButton: Builder(builder: (context) {
+        return StatefulBuilder(builder: (context, setState) {
+          return FloatingActionButton(
+            heroTag: 'faB',
+            elevation: 20,
+            enableFeedback: true,
+            backgroundColor: lTheme ? MyTheme.blueDark : MyTheme.d_red,
+            onPressed: () {
+              if (isFABSwitched) {
+                showBottomSheet(
+                  backgroundColor: Colors.transparent,
+                  context: context,
+                  builder: (context) => AddSongBar(
+                    playListName: playlistName,
+                  ),
+                );
+                isFABSwitched = false;
+              } else {
+                Navigator.of(context).pop();
+                isFABSwitched = true;
+              }
+              // AddSongBar(
+              //   mycontext: context,
+              // ).showOrHide();
+              // log("message");
+              setState(() {});
+            },
+            child: isFABSwitched
+                ? Icon(
+                    Icons.add,
+                    size: 40,
+                    color: MyTheme.light,
+                  )
+                : Icon(
+                    Icons.expand_more_rounded,
+                    size: 30,
+                    color: MyTheme.light,
+                  ),
+          );
+        });
+      }),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

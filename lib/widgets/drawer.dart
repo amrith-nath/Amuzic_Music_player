@@ -70,6 +70,7 @@ class _MydrawerState extends State<Mydrawer> {
                   type: PageTransitionType.rightToLeft,
                   child: child,
                 ));
+            Scaffold.of(context).closeDrawer();
           },
           leading: leading,
           title: MyFont.montSemiBold13(title),

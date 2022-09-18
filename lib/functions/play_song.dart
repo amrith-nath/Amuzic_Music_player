@@ -19,6 +19,7 @@ class PlaySong {
   bool? notify;
   startPlay() async {
     notify = preferences.getBool("notification") ?? true;
+
     myPlayer.open(
       Playlist(
         audios: fullSongs,
