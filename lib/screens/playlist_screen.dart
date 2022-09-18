@@ -77,7 +77,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                 valueListenable: box!.listenable(),
                 builder: (context, boxes, _) {
                   playlists = box!.keys.toList();
-                  return playlists.length != 2
+                  return playlists.length != 3
                       ? ListView.builder(
                           physics: const BouncingScrollPhysics(),
                           itemCount: playlists.length,

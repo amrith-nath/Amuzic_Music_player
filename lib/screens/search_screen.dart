@@ -136,7 +136,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 ],
               ),
             ),
-            playLists.length > 2 && flag != 0
+            playLists.length > 3 && flag != 0
                 ? MyFont.montBold18("PlayLists")
                 : MyFont.montMedium13("No PlayLists found"),
             Divider(
@@ -144,55 +144,61 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             SlideInRight(
               duration: const Duration(milliseconds: 300),
-              child: SizedBox(
-                height: 120,
-                child: ListView(
-                  physics: const BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    ...playLists.map(
-                      (element) => element
-                                  .toString()
-                                  .toLowerCase()
-                                  .contains(currenttext.toLowerCase()) &&
-                              element.toString() != "musics" &&
-                              element.toString() != "favourites" &&
-                              element.toString() != "recent"
-                          ? Column(
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      PageTransition(
-                                        type: PageTransitionType.rightToLeft,
-                                        alignment: Alignment.bottomCenter,
-                                        child: PlayListExpanded(
-                                          playlistName: element.toString(),
-                                        ),
-                                      ),
-                                    );
+              child: playLists.length > 3 && flag != 0
+                  ? SizedBox(
+                      height: 120,
+                      child: ListView(
+                        physics: const BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          ...playLists.map(
+                            (element) => element
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(currenttext.toLowerCase()) &&
+                                    element.toString() != "musics" &&
+                                    element.toString() != "favourites" &&
+                                    element.toString() != "recent"
+                                ? Column(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            PageTransition(
+                                              type: PageTransitionType
+                                                  .rightToLeft,
+                                              alignment: Alignment.bottomCenter,
+                                              child: PlayListExpanded(
+                                                playlistName:
+                                                    element.toString(),
+                                              ),
+                                            ),
+                                          );
 
-                                    MyFont.myClick();
-                                  },
-                                  child: Container(
-                                      margin: const EdgeInsets.all(10),
-                                      height: 100,
-                                      width: 100,
-                                      decoration: playListDecoration,
-                                      child: Center(
-                                        child: MyFont.montSemiBold13(
-                                          element.toString().toUpperCase(),
-                                        ),
-                                      )),
-                                ),
-                              ],
-                            )
-                          : Container(),
-                    ),
-                  ],
-                ),
-              ),
+                                          MyFont.myClick();
+                                        },
+                                        child: Container(
+                                            margin: const EdgeInsets.all(10),
+                                            height: 100,
+                                            width: 100,
+                                            decoration: playListDecoration,
+                                            child: Center(
+                                              child: MyFont.montSemiBold13(
+                                                element
+                                                    .toString()
+                                                    .toUpperCase(),
+                                              ),
+                                            )),
+                                      ),
+                                    ],
+                                  )
+                                : Container(),
+                          ),
+                        ],
+                      ),
+                    )
+                  : const SizedBox(),
             ),
             const SizedBox(
               height: 10,

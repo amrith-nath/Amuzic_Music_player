@@ -1,10 +1,8 @@
-import 'dart:developer';
 import 'dart:ui';
 
 import 'package:amuzic/database/database_model.dart';
 import 'package:amuzic/database/db_functions.dart';
 import 'package:amuzic/fonts/fonts.dart';
-import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';

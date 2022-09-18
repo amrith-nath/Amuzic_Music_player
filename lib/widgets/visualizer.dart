@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'package:amuzic/theme/app_theme.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:dynamic_themes/dynamic_themes.dart';
@@ -55,7 +54,9 @@ class Visualizer extends StatelessWidget {
                               key: const Key('c'),
                               child: Container(
                                 height: 6,
-                                color: Colors.red.shade400,
+                                color: lTheme
+                                    ? Colors.red.shade400
+                                    : Colors.blue.shade900,
                               ),
                             ),
                           );
