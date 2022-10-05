@@ -9,7 +9,7 @@ import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-import '../../core/functions/play_song.dart';
+import '../../infrastructure/song_repo/play_repo.dart';
 
 class MiniPlayer extends StatefulWidget {
   MiniPlayer({required this.fullSong, required this.index, Key? key})
