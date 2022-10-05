@@ -1,9 +1,9 @@
 import 'dart:developer';
 
-import 'package:amuzic/database/database_model.dart';
-import 'package:amuzic/database/db_functions.dart';
-import 'package:amuzic/screens/splash_screen.dart';
-import 'package:amuzic/theme/app_theme.dart';
+import 'package:amuzic/domine/database/database_model.dart';
+import 'package:amuzic/domine/database/db_functions.dart';
+import 'package:amuzic/presentation/screens/splash_screen/splash_screen.dart';
+import 'package:amuzic/core/theme/app_theme.dart';
 import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
