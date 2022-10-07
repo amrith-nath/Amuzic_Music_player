@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:amuzic/application/favourites_screen_bloc/favourites_screen_bloc.dart';
+import 'package:amuzic/application/playlist_expanded_bloc/playlist_expanded_bloc.dart';
 import 'package:amuzic/domine/database/database_model.dart';
 import 'package:amuzic/infrastructure/song_repo/songs_repo.dart';
 import 'package:amuzic/core/fonts/fonts.dart';
@@ -91,6 +92,9 @@ class AddSongBar extends StatelessWidget {
                                       playListName: playListName);
                                   BlocProvider.of<FavouritesScreenBloc>(context)
                                       .add(GetFavSongsEvent());
+                                  BlocProvider.of<PlaylistExpandedBloc>(context)
+                                      .add(OnGetPlayListSongs(
+                                          playListName: playListName));
                                 }),
                               ),
                             )

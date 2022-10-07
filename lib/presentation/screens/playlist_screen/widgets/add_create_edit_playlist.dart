@@ -56,21 +56,6 @@ class AddToPlaylist extends StatelessWidget {
 
         //todo try spread operated list generation
 
-        // body: ListView(
-        //   children: [
-        //     ...playlistsNames
-        //         .map(
-        //           (playlistname) =>
-        //               playlistname != "musics" && playlistname != "favourites"
-        //                   ? ListTile(
-        //                       title: playlistname,
-        //                     )
-        //                   : const SizedBox(),
-        //         )
-        //         .toList()
-        //   ],
-        // ),
-
         body: ListView.builder(
           itemCount: playlistsNames.length,
           itemBuilder: (BuildContext context, int index) {

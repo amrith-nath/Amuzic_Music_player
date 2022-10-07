@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:amuzic/application/favourites_screen_bloc/favourites_screen_bloc.dart';
 import 'package:amuzic/application/home_screen_bloc/home_screen_bloc.dart';
 import 'package:amuzic/application/login_screen_cubit/login_screen_cubit.dart';
+import 'package:amuzic/application/playlist_expanded_bloc/playlist_expanded_bloc.dart';
 import 'package:amuzic/application/playlist_screen_bloc/playlist_screen_bloc.dart';
 import 'package:amuzic/application/song_tile_bloc/song_tile_bloc.dart';
 import 'package:amuzic/domine/database/database_model.dart';
@@ -66,6 +67,9 @@ class MyApp extends StatelessWidget {
                 ),
                 BlocProvider(
                   create: (context) => PlaylistScreenBloc(),
+                ),
+                BlocProvider(
+                  create: (context) => PlaylistExpandedBloc(),
                 ),
               ],
               child: MaterialApp(

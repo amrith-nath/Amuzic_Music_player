@@ -15,12 +15,15 @@ class SongTile extends StatelessWidget {
   const SongTile({
     required this.songs,
     required this.index,
+    this.playlistName = '',
     Key? key,
   }) : super(key: key);
 
   final int index;
 
   final List<Audio> songs;
+
+  final String playlistName;
 
   // final tileBox = Mybox.getinstance();
   // List<LocalStorageSongs> dbSongs = [];
@@ -86,6 +89,7 @@ class SongTile extends StatelessWidget {
                           lTheme: lTheme,
                           songs: songs,
                           index: index,
+                          playListname: playlistName,
                           isEmpty: true)
                     ],
                   ),
@@ -103,6 +107,7 @@ class SongTileMenuWidget extends StatelessWidget {
       required this.lTheme,
       required this.songs,
       required this.index,
+      required this.playListname,
       required this.isEmpty})
       : super(key: key);
 
@@ -110,6 +115,7 @@ class SongTileMenuWidget extends StatelessWidget {
   final List<Audio> songs;
   final int index;
   final bool isEmpty;
+  final String playListname;
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +130,10 @@ class SongTileMenuWidget extends StatelessWidget {
           shape: BoxShape.circle,
           color: lTheme ? MyTheme.light : MyTheme.d_base,
         ),
-        child: PopUpMenu(songId: songs[index].metas.id!, isEmpty: isEmpty),
+        child: PopUpMenu(
+            songId: songs[index].metas.id!,
+            isEmpty: isEmpty,
+            playListname: playListname),
       ),
     );
   }
