@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:amuzic/application/home_screen_bloc/home_screen_bloc.dart';
 import 'package:amuzic/core/fonts/fonts.dart';
 import 'package:amuzic/main.dart';
 import 'package:amuzic/widgets/butttons/buttons.dart';
@@ -7,6 +8,7 @@ import 'package:amuzic/presentation/screens/settings_screen/widgets/settings_dlg
 import 'package:animate_do/animate_do.dart';
 import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../core/theme/app_theme.dart';
@@ -45,6 +47,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     setTheme() async {
       isThemeSwitched = !isThemeSwitched;
+      BlocProvider.of<HomeScreenBloc>(context).add(GetSongEvent());
 
       DynamicTheme.of(context)!.setTheme(
           isThemeSwitched ? MyTheme.darkThemeId : MyTheme.lightThemeId);

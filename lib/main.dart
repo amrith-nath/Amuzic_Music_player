@@ -1,11 +1,17 @@
 import 'dart:developer';
 
+import 'package:amuzic/application/favourites_screen_bloc/favourites_screen_bloc.dart';
+import 'package:amuzic/application/home_screen_bloc/home_screen_bloc.dart';
+import 'package:amuzic/application/login_screen_cubit/login_screen_cubit.dart';
+import 'package:amuzic/application/playlist_screen_bloc/playlist_screen_bloc.dart';
+import 'package:amuzic/application/song_tile_bloc/song_tile_bloc.dart';
 import 'package:amuzic/domine/database/database_model.dart';
-import 'package:amuzic/domine/database/db_functions.dart';
+import 'package:amuzic/infrastructure/song_repo/songs_repo.dart';
 import 'package:amuzic/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:amuzic/core/theme/app_theme.dart';
 import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -44,10 +50,29 @@ class MyApp extends StatelessWidget {
           themeCollection: MyTheme.themeCollection,
           defaultThemeId: MyTheme.lightThemeId,
           builder: (context, theme) {
-            return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              theme: theme,
-              home: const SplashSreen(),
+            return MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (context) => LoginScreenCubit(),
+                ),
+                BlocProvider(
+                  create: (context) => SongTileBloc(),
+                ),
+                BlocProvider(
+                  create: (context) => HomeScreenBloc(),
+                ),
+                BlocProvider(
+                  create: (context) => FavouritesScreenBloc(),
+                ),
+                BlocProvider(
+                  create: (context) => PlaylistScreenBloc(),
+                ),
+              ],
+              child: MaterialApp(
+                debugShowCheckedModeBanner: false,
+                theme: theme,
+                home: SplashSreen(),
+              ),
             );
           });
     });

@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'package:amuzic/domine/database/database_model.dart';
-import 'package:amuzic/domine/database/db_functions.dart';
+import 'package:amuzic/infrastructure/song_repo/songs_repo.dart';
 import 'package:amuzic/main.dart';
 import 'package:amuzic/presentation/screens/play_screen/play_screen.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
@@ -40,6 +40,18 @@ class PlaySong {
     final song = getSong(fullSongs[index]);
 
     await addSong(song);
+  }
+
+  next() {
+    myPlayer.next();
+  }
+
+  playOrPause() {
+    myPlayer.playOrPause();
+  }
+
+  previous() {
+    myPlayer.previous();
   }
 
   shuffle() {

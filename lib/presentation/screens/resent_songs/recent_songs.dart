@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:amuzic/domine/database/db_functions.dart';
+import 'package:amuzic/infrastructure/song_repo/songs_repo.dart';
 import 'package:amuzic/core/theme/app_theme.dart';
 import 'package:amuzic/widgets/butttons/buttons.dart';
 import 'package:amuzic/widgets/song_tile/song_tile.dart';
@@ -95,7 +95,6 @@ class RecentScreen extends StatelessWidget {
                               padding: const EdgeInsets.only(
                                   left: 20, right: 20, top: 20),
                               child: SongTile(
-                                recentSongs[index].id!,
                                 songs: recentSongsTemp,
                                 index: index,
                               ));

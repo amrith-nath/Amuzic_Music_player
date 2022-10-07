@@ -7,10 +7,9 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
-  HomeScreen({required this.userName, required this.allSongs, Key? key})
-      : super(key: key);
+  HomeScreen({required this.userName, Key? key}) : super(key: key);
   String userName;
-  List<Audio> allSongs;
+
   bool isSearchOn = false;
 
   @override
@@ -30,7 +29,6 @@ class HomeScreen extends StatelessWidget {
       ),
       body: MyHome(
         userName: userName,
-        allSongs: allSongs,
       ),
     );
   }

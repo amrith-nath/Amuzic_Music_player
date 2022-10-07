@@ -9,23 +9,18 @@ import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-import '../../infrastructure/song_repo/play_repo.dart';
-
-class MiniPlayer extends StatefulWidget {
-  MiniPlayer({required this.fullSong, required this.index, Key? key})
-      : super(key: key);
-  List<Audio> fullSong;
-
-  int index;
-
-  @override
-  State<MiniPlayer> createState() => _MiniPlayerState();
-}
+import '../../infrastructure/play_repo/play_repo.dart';
 
 int? indextemp;
 String? songurl;
 
-class _MiniPlayerState extends State<MiniPlayer> {
+class MiniPlayer extends StatelessWidget {
+  MiniPlayer({required this.fullSong, required this.index, Key? key})
+      : super(key: key);
+  final List<Audio> fullSong;
+
+  final int index;
+
   bool nextDone = true;
   bool preDone = true;
 //
@@ -39,37 +34,33 @@ class _MiniPlayerState extends State<MiniPlayer> {
   }
 
   @override
-  void initState() {
-    if (songurl == null || songurl != widget.fullSong[widget.index].path) {
-      PlaySong(fullSongs: widget.fullSong, index: widget.index).startPlay();
-    }
-    indextemp = widget.index;
-    songurl = widget.fullSong[widget.index].path;
-
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (songurl == null || songurl != fullSong[index].path) {
+        PlaySong(fullSongs: fullSong, index: index).startPlay();
+      }
+      indextemp = index;
+      songurl = fullSong[index].path;
+    });
+
     var size = MediaQuery.of(context).size;
     final lTheme = DynamicTheme.of(context)!.themeId == 0 ? true : false;
 
     return assetAudioPlayer.builderCurrent(
         builder: (BuildContext context, Playing playing) {
-      final nowSong =
-          findPlayPath(widget.fullSong, playing.audio.assetAudioPath);
+      final nowSong = findPlayPath(fullSong, playing.audio.assetAudioPath);
       return GestureDetector(
-        // onTap: () {
-        //   MyFont.myClick();
-        //   Play.goToNowPlaying(context, widget.fullSong);
-        //   // Navigator.of(context)
-        //   //     .push(MaterialPageRoute(builder: (ctx) => PlayScreen()));
-        // },
+        onTap: () {
+          Play.goToNowPlaying(
+            context,
+            fullSong,
+          );
+        },
         onVerticalDragUpdate: (details) {
           if (details.delta.direction < 0) {
             Play.goToNowPlaying(
               context,
-              widget.fullSong,
+              fullSong,
             );
           } else {
             Navigator.pop(context);
@@ -84,7 +75,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
             SlideInUp(
               // duration: Duration(milliseconds: 400),
               child: Container(
-                margin: EdgeInsets.only(top: 30),
+                margin: const EdgeInsets.only(top: 30),
                 clipBehavior: Clip.hardEdge,
                 decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
@@ -178,23 +169,8 @@ class _MiniPlayerState extends State<MiniPlayer> {
                             color: lTheme ? MyTheme.light : MyTheme.d_base,
                           ),
                         ),
-                        PlayerBuilder.isPlaying(
-                          player: assetAudioPlayer,
-                          builder: (context, isPaying) {
-                            return IconButton(
-                              iconSize: 50,
-                              onPressed: () async {
-                                await assetAudioPlayer.playOrPause();
-                              },
-                              icon: Icon(
-                                isPaying
-                                    ? Icons.pause_circle_outline
-                                    : Icons.play_circle_filled_rounded,
-                                color: lTheme ? MyTheme.light : MyTheme.d_base,
-                              ),
-                            );
-                          },
-                        ),
+                        SongPlayMiniButton(
+                            assetAudioPlayer: assetAudioPlayer, lTheme: lTheme),
                         IconButton(
                           iconSize: 30,
                           onPressed: () async {
@@ -235,37 +211,81 @@ class _MiniPlayerState extends State<MiniPlayer> {
             Positioned(
               left: 40,
               bottom: 55,
-              child: Container(
-                clipBehavior: Clip.hardEdge,
-                height: MediaQuery.of(context).size.height / 11,
-                width: MediaQuery.of(context).size.height / 11,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    MyTheme.myBoxShadow(),
-                    MyTheme.myBoxShadow(),
-                    MyTheme.myBoxShadow(),
-                  ],
-                ),
-                child: QueryArtworkWidget(
-                  nullArtworkWidget: Image.asset(
-                    'assets/images/red_lady.png',
-                    fit: BoxFit.cover,
-                  ),
-                  artworkClipBehavior: Clip.none,
-                  artworkFit: BoxFit.cover,
-                  id: int.parse(nowSong.metas.id!),
-                  type: ArtworkType.AUDIO,
-                ),
-              ),
+              child: MiniPlayerSongImage(nowSong: nowSong),
             ),
-            // Positioned(
-            //     left: MediaQuery.of(context).size.width / 2.9,
-            //     bottom: MediaQuery.of(context).size.height / 8,
-            //     child: ),
           ],
         ),
       );
     });
+  }
+}
+
+class SongPlayMiniButton extends StatelessWidget {
+  const SongPlayMiniButton({
+    Key? key,
+    required this.assetAudioPlayer,
+    required this.lTheme,
+  }) : super(key: key);
+
+  final AssetsAudioPlayer assetAudioPlayer;
+  final bool lTheme;
+
+  @override
+  Widget build(BuildContext context) {
+    return PlayerBuilder.isPlaying(
+      player: assetAudioPlayer,
+      builder: (context, isPaying) {
+        return IconButton(
+          iconSize: 50,
+          onPressed: () async {
+            await assetAudioPlayer.playOrPause();
+          },
+          icon: Icon(
+            isPaying
+                ? Icons.pause_circle_outline
+                : Icons.play_circle_filled_rounded,
+            color: lTheme ? MyTheme.light : MyTheme.d_base,
+          ),
+        );
+      },
+    );
+  }
+}
+
+// !widgets
+
+class MiniPlayerSongImage extends StatelessWidget {
+  const MiniPlayerSongImage({
+    Key? key,
+    required this.nowSong,
+  }) : super(key: key);
+
+  final Audio nowSong;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      clipBehavior: Clip.hardEdge,
+      height: MediaQuery.of(context).size.height / 11,
+      width: MediaQuery.of(context).size.height / 11,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        boxShadow: [
+          MyTheme.myBoxShadow(),
+          MyTheme.myBoxShadow(),
+          MyTheme.myBoxShadow(),
+        ],
+      ),
+      child: QueryArtworkWidget(
+        nullArtworkWidget: Image.asset(
+          'assets/images/red_lady.png',
+          fit: BoxFit.cover,
+        ),
+        artworkClipBehavior: Clip.none,
+        artworkFit: BoxFit.cover,
+        id: int.parse(nowSong.metas.id!),
+        type: ArtworkType.AUDIO,
+      ),
+    );
   }
 }

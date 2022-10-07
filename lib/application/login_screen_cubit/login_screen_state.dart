@@ -1,6 +1,7 @@
 part of 'login_screen_cubit.dart';
 
-@immutable
-abstract class LoginScreenState {}
+class LoginScreenState {
+  final bool isSwiped;
 
-class LoginScreenInitial extends LoginScreenState {}
+  const LoginScreenState({required this.isSwiped});
+}

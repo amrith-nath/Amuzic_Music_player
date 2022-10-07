@@ -4,5 +4,7 @@ import 'package:meta/meta.dart';
 part 'login_screen_state.dart';
 
 class LoginScreenCubit extends Cubit<LoginScreenState> {
-  LoginScreenCubit() : super(LoginScreenInitial());
+  LoginScreenCubit() : super(const LoginScreenState(isSwiped: false));
+
+  void isSwiped() => emit(const LoginScreenState(isSwiped: true));
 }

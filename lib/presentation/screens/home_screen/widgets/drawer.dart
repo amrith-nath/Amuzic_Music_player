@@ -144,7 +144,7 @@ class _MydrawerState extends State<Mydrawer> {
           SlideInLeft(
             duration: const Duration(milliseconds: 350),
             child: drawerListTile(
-              child: const PlayListScreen(),
+              child: PlayListScreen(),
               leading: drawerAvatar(
                 color: const Color.fromRGBO(43, 45, 66, 1),
                 icon: Icons.library_music,

@@ -1,10 +1,12 @@
+import 'package:amuzic/application/playlist_screen_bloc/playlist_screen_bloc.dart';
 import 'package:amuzic/domine/database/database_model.dart';
-import 'package:amuzic/domine/database/db_functions.dart';
+import 'package:amuzic/infrastructure/song_repo/songs_repo.dart';
 import 'package:amuzic/core/fonts/fonts.dart';
 import 'package:amuzic/core/theme/app_theme.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xen_popup_card/xen_card.dart';
 
 class AddToPlaylist extends StatelessWidget {
@@ -196,7 +198,12 @@ class CreatePlaylistDlg extends StatelessWidget {
             child: TextButton.icon(
                 onPressed: () {
                   if (formkey.currentState!.validate()) {
-                    box!.put(playlistName, playlists);
+                    // box!.put(playlistName, playlists);
+
+                    BlocProvider.of<PlaylistScreenBloc>(context)
+                        .add(AddPlayListEvent(
+                      playlistname: playlistName,
+                    ));
                     Navigator.pop(context);
                   }
                 },
@@ -214,10 +221,8 @@ class CreatePlaylistDlg extends StatelessWidget {
 }
 
 class PlayListEdit extends StatelessWidget {
-  PlayListEdit({required this.playListName, this.setState, Key? key})
-      : super(key: key);
+  PlayListEdit({required this.playListName, Key? key}) : super(key: key);
   String playListName;
-  Function? setState;
 
   final box = Mybox.getinstance();
 
@@ -286,12 +291,13 @@ class PlayListEdit extends StatelessWidget {
           TextButton.icon(
               onPressed: () {
                 if (formkey.currentState!.validate()) {
-                  List? playList = box!.get(playListName);
-                  box!.put(newName, playList!);
-                  box!.delete(playListName);
+                  BlocProvider.of<PlaylistScreenBloc>(context).add(
+                      EditPlayListEvent(
+                          playlistname: playListName,
+                          playlistNewname: newName));
+
                   Navigator.pop(context);
                 }
-                setState;
               },
               icon: const Icon(
                 Icons.done,

@@ -1,4 +1,5 @@
-import 'package:amuzic/domine/database/db_functions.dart';
+import 'package:amuzic/application/favourites_screen_bloc/favourites_screen_bloc.dart';
+import 'package:amuzic/infrastructure/song_repo/songs_repo.dart';
 import 'package:amuzic/widgets/butttons/buttons.dart';
 import 'package:amuzic/widgets/song_tile/song_tile.dart';
 import 'package:dynamic_themes/dynamic_themes.dart';
@@ -8,6 +9,7 @@ import 'package:amuzic/core/theme/app_theme.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../widgets/add_song_bar/add_song_bar.dart';
@@ -21,9 +23,13 @@ class favourites extends StatelessWidget {
   Widget build(BuildContext context) {
     final lTheme = DynamicTheme.of(context)!.themeId == 0 ? true : false;
 
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      BlocProvider.of<FavouritesScreenBloc>(context).add(GetFavSongsEvent());
+    });
+
     // List<LocalStorageSongs>? dbSongs = [];
 
-    final box = Mybox.getinstance();
+    // final box = Mybox.getinstance();
     bool isFABSwitched = true;
 
     return Scaffold(
@@ -72,42 +78,41 @@ class favourites extends StatelessWidget {
           ];
         },
         body: SlideInRight(
-          child: ValueListenableBuilder(
-              valueListenable: box!.listenable(),
-              builder: (context, value, child) {
-                final favSongs = box.get(playlistName);
-                List<Audio> favSongsTemp = [];
-                for (var element in favSongs!) {
-                  favSongsTemp.add(Audio.file(element.uri,
-                      metas: Metas(
-                        title: element.title,
-                        id: element.id.toString(),
-                        artist: element.artist,
-                      )));
-                }
-                return favSongs.isNotEmpty
-                    ? ListView.separated(
-                        physics: const BouncingScrollPhysics(),
-                        itemCount: favSongs.length,
-                        separatorBuilder: (BuildContext context, int index) {
-                          return const SizedBox();
-                        },
-                        itemBuilder: (BuildContext context, int index) {
-                          return Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 20, right: 20, top: 20),
-                              child: SongTile(
-                                int.parse(favSongsTemp[index].metas.id!),
-                                songs: favSongsTemp,
-                                index: index,
-                              ));
-                        },
-                      )
-                    : Center(
-                        child: MyFont.montMedium13(
-                            "No Favourites found , add some"),
-                      );
-              }),
+          child: BlocBuilder<FavouritesScreenBloc, FavouritesScreenState>(
+              // valueListenable: box!.listenable(),
+              builder: (context, state) {
+            // final favSongs = box.get(playlistName);
+            List<Audio> favSongsTemp = [];
+            for (var element in state.favSongs) {
+              favSongsTemp.add(Audio.file(element.uri,
+                  metas: Metas(
+                    title: element.title,
+                    id: element.id.toString(),
+                    artist: element.artist,
+                  )));
+            }
+            return state.favSongs.isNotEmpty
+                ? ListView.separated(
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: state.favSongs.length,
+                    separatorBuilder: (BuildContext context, int index) {
+                      return const SizedBox();
+                    },
+                    itemBuilder: (BuildContext context, int index) {
+                      return Padding(
+                          padding: const EdgeInsets.only(
+                              left: 20, right: 20, top: 20),
+                          child: SongTile(
+                            songs: favSongsTemp,
+                            index: index,
+                          ));
+                    },
+                  )
+                : Center(
+                    child:
+                        MyFont.montMedium13("No Favourites found , add some"),
+                  );
+          }),
         ),
       ),
       floatingActionButton: Builder(builder: (context) {

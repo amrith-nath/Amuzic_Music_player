@@ -1,5 +1,5 @@
 import 'package:amuzic/domine/database/database_model.dart';
-import 'package:amuzic/domine/database/db_functions.dart';
+import 'package:amuzic/infrastructure/song_repo/songs_repo.dart';
 import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
@@ -229,7 +229,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                   ? Padding(
                                       padding:
                                           const EdgeInsets.only(bottom: 20),
-                                      child: SongTile(int.parse(song.metas.id!),
+                                      child: SongTile(
                                           songs: audioSongs,
                                           index: int.parse(song.metas.album!)),
                                     )

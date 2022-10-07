@@ -51,7 +51,7 @@ dependencies:
   share_plus: ^4.0.10+1
   dynamic_themes: ^1.1.0
   solid_bottom_sheet: ^0.1.10
-  bloc: ^8.1.0
+  flutter_bloc: ^8.1.1
 
 dev_dependencies:
   build_runner: ^2.1.8

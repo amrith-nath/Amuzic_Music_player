@@ -1,10 +1,12 @@
 import 'dart:ui';
 
+import 'package:amuzic/application/favourites_screen_bloc/favourites_screen_bloc.dart';
 import 'package:amuzic/domine/database/database_model.dart';
-import 'package:amuzic/domine/database/db_functions.dart';
+import 'package:amuzic/infrastructure/song_repo/songs_repo.dart';
 import 'package:amuzic/core/fonts/fonts.dart';
 import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:solid_bottom_sheet/solid_bottom_sheet.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -84,8 +86,11 @@ class AddSongBar extends StatelessWidget {
                                   color: Colors.red.shade900,
                                 ),
                                 onPressed: (() {
-                                  playlistSongs.add(allsongs[index]);
-                                  box.put(playListName, playlistSongs);
+                                  Mybox.addSongToPlayList(
+                                      song: allsongs[index],
+                                      playListName: playListName);
+                                  BlocProvider.of<FavouritesScreenBloc>(context)
+                                      .add(GetFavSongsEvent());
                                 }),
                               ),
                             )

@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:amuzic/domine/database/db_functions.dart';
+import 'package:amuzic/infrastructure/song_repo/songs_repo.dart';
 import 'package:amuzic/core/fonts/fonts.dart';
 import 'package:amuzic/core/theme/app_theme.dart';
 import 'package:amuzic/widgets/add_song_bar/add_song_bar.dart';
@@ -150,7 +150,6 @@ class PlayListExpanded extends StatelessWidget {
                                   }
                                 }),
                                 child: SongTile(
-                                  playlistSongs[index].id!,
                                   songs: playListtemp,
                                   index: index,
                                 ),
